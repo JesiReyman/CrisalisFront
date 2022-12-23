@@ -1,0 +1,67 @@
+<div class="container d-flex flex-column align-items-center">
+  <div class="container form-container mt-5">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <legend>Iniciar Sesión</legend>
+
+      <div class="form-group col-sm-6">
+
+        <label for="nombreUsuario" class="form-label">Usuario:</label>
+        <input type="text" id="nombreUsuario" formControlName="nombreUsuario">
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="password" class="form-label">Password:</label>
+        <input type="password" id="password" formControlName="password">
+      </div>
+
+
+      <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">Ingresar</button>
+    </form>
+  </div>
+
+  <button type="button" class="btn btn-secondary btn-registro m-3" data-bs-toggle="modal" data-bs-target="#registroForm">Registro</button>
+
+</div>
+
+<div class="modal fade" id="registroForm" tabindex="-1" aria-labelledby="registroFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="registroFormLabel">Registro</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="registracionForm" (ngSubmit)="onRegistrar()">
+
+            <label for="nombre" class="col-form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre">
+
+
+            <label for="apellido" class="col-form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" formControlName="apellido">
+
+
+            <label for="nombreUsuario" class="col-form-label">Usuario</label>
+            <input type="text" class="form-control" id="nombreUsuario" formControlName="nombreUsuario">
+
+
+            <label for="email" class="col-form-label">Email</label>
+            <input type="text" class="form-control" id="email" formControlName="email">
+
+
+            <label for="password" class="col-form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" formControlName="password">
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" [disabled]="registracionForm.invalid" class="btn btn-primary">Aceptar</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
