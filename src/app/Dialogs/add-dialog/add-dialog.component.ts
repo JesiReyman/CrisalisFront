@@ -22,19 +22,12 @@ export class AddDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.camposFormulario.forEach(
-      (question: {
-        key: string;
-        value: string;
-        required: boolean;
-        pattern?: string;
-        type: string;
-      }) => {
-        this.validacionCondicional(question.type);
+      (question: CamposFormulario) => {
         this.group[question.key] = question.required
           ? new FormControl(
               question.value,
 
-              Validators.required
+              [Validators.required, Validators.pattern(question.pattern ?? '')]
             )
           : new FormControl(question.value);
       }
@@ -46,10 +39,9 @@ export class AddDialogComponent implements OnInit {
 
 
 
-  confirmar(){}
-
-  validacionCondicional(tipo: string){
-    console.log('este campo es del tipo: ' + tipo);
+  onSubmit(){
+    this.dialogRef.close(this.formulario.value);
   }
+
 
 }

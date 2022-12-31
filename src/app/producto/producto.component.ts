@@ -41,19 +41,26 @@ export class ProductoComponent implements OnInit {
   }
 
   agregar() {
-    console.log('voy a agregar un producto');
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     let campos = Producto.getCamposFormulario();
-    console.log('los campos que se mandan desde producto son: ' + JSON.stringify(campos))
 
     dialogConfig.data = {
       titulo: 'Agregar producto',
       camposFormulario: campos,
     };
 
-    this.dialog.open(AddDialogComponent, dialogConfig);
+    this.dialog.open(AddDialogComponent, dialogConfig)
+    .afterClosed().subscribe(producto => {
+      console.log('a prodcuto llego: ' + JSON.stringify(producto) );
+      this.productoService.agregarProducto(producto).subscribe({
+        next: () => {
+          this.obtenerListaProductos();
+        },
+        error: (error: HttpErrorResponse) => console.log(error),
+      })
+    });
   }
 }

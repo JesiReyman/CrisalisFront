@@ -35,6 +35,7 @@ export class Producto {
         label: 'Precio Base',
         type: 'number',
         required: true,
+        pattern: '[0-9]+(\.[0-9][0-9]?)?'
       },
       {
         key: 'stock',
