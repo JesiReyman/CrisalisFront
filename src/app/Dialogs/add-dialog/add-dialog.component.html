@@ -1,0 +1,25 @@
+<h3 mat-dialog-title>{{titulo}}</h3>
+<form [formGroup]="formulario" >
+<div mat-dialog-content class="d-flex flex-column" *ngFor="let campo of camposFormulario">
+
+  <mat-form-field appearance="fill" *ngIf="!campo.type.includes('number')">
+    <mat-label>{{campo.label}}</mat-label>
+    <input matInput type={{campo.type}} formControlName={{campo.key}}>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" *ngIf="campo.type.includes('number')">
+    <mat-label>{{campo.label}}</mat-label>
+    <input matInput type={{campo.type}} formControlName={{campo.key}} min="0">
+  </mat-form-field>
+
+  <!--<mat-form-field appearance="fill">
+    <mat-label>Textarea</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>-->
+
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button mat-dialog-close color="primary">Cancelar</button>
+  <button mat-stroked-button mat-dialog-close color="success" cdkFocusInitial (click)="confirmar()">Confirmar</button>
+</div>
+</form>

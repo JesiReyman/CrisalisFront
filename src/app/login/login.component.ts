@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NuevoUsuario } from '../model/nuevoUsuario';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
           console.log('esta logueado');
           let token = resultado.token;
           this.tokenService.setToken(token);
+          this.router.navigate(['/productos']);
         },
         error: (error: HttpErrorResponse) => {
           console.log(error);
