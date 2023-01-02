@@ -24,4 +24,8 @@ export class ProductoService {
     return this.http.post<Producto>(this.productoURL + '/nuevo', producto);
   }
 
+  public editarProducto(nombreProducto: string, producto: Producto): Observable<Producto>{
+    return this.http.put<Producto>(this.productoURL + `/editar/${nombreProducto}`, producto)
+  }
+
 }

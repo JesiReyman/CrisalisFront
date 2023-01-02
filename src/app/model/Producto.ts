@@ -12,26 +12,32 @@ export class Producto {
     this.stock = stock;
   }
 
-  static getCamposFormulario(): CamposFormulario[]{
+  static getCamposFormulario(item?: Producto): CamposFormulario[]{
     let campos = [];
+    let valores : [string, string, number, number];
+    if (item){
+      valores = [item.nombre, item.descripcion, item.precioBase, item.stock];
+    } else{
+      valores = ['', '', 0, 0];
+    }
     campos = [
       {
         key: 'nombre',
-        value: '',
+        value: valores[0],
         label: 'Nombre de producto',
         type: 'text',
         required: true,
       },
       {
         key: 'descripcion',
-        value: '',
+        value: valores[1],
         label: 'Descripción',
         type: 'text',
         required: false,
       },
       {
         key: 'precioBase',
-        value: '',
+        value: valores[2],
         label: 'Precio Base',
         type: 'number',
         required: true,
@@ -39,7 +45,7 @@ export class Producto {
       },
       {
         key: 'stock',
-        value: '',
+        value: valores[3],
         label: 'Stock',
         type: 'number',
         required: true,

@@ -18,7 +18,7 @@
       </thead>
 
       <tbody>
-        <tr app-producto-item *ngFor="let producto of listaProductos" [productoItem]="producto" (aceptoBorrar)="eliminar($event)">
+        <tr app-producto-item *ngFor="let producto of listaProductos" [productoItem]="producto" (aceptoBorrar)="eliminar($event)" (productoEditado)="editar($event)">
         </tr>
       </tbody>
 

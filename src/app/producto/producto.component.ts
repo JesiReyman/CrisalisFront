@@ -54,13 +54,24 @@ export class ProductoComponent implements OnInit {
 
     this.dialog.open(AddDialogComponent, dialogConfig)
     .afterClosed().subscribe(producto => {
-      console.log('a prodcuto llego: ' + JSON.stringify(producto) );
+      if(producto){
+        console.log('a prodcuto llego: ' + JSON.stringify(producto) );
       this.productoService.agregarProducto(producto).subscribe({
         next: () => {
           this.obtenerListaProductos();
         },
         error: (error: HttpErrorResponse) => console.log(error),
       })
+      }
     });
+  }
+
+  editar(item: any){
+    this.productoService.editarProducto(item.nombreProducto, item.producto).subscribe({
+      next: () => {
+        this.obtenerListaProductos();
+      },
+      error: (error: HttpErrorResponse) => console.log(error),
+    })
   }
 }
