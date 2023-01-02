@@ -52,26 +52,30 @@ export class ProductoComponent implements OnInit {
       camposFormulario: campos,
     };
 
-    this.dialog.open(AddDialogComponent, dialogConfig)
-    .afterClosed().subscribe(producto => {
-      if(producto){
-        console.log('a prodcuto llego: ' + JSON.stringify(producto) );
-      this.productoService.agregarProducto(producto).subscribe({
+    this.dialog
+      .open(AddDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((producto) => {
+        if (producto) {
+          this.productoService.agregarProducto(producto)
+          .subscribe({
+            next: () => {
+              this.obtenerListaProductos();
+            },
+            error: (error: HttpErrorResponse) => console.log(error),
+          });
+        }
+      });
+  }
+
+  editar(item: any) {
+    this.productoService
+      .editarProducto(item.nombreProducto, item.producto)
+      .subscribe({
         next: () => {
           this.obtenerListaProductos();
         },
         error: (error: HttpErrorResponse) => console.log(error),
-      })
-      }
-    });
-  }
-
-  editar(item: any){
-    this.productoService.editarProducto(item.nombreProducto, item.producto).subscribe({
-      next: () => {
-        this.obtenerListaProductos();
-      },
-      error: (error: HttpErrorResponse) => console.log(error),
-    })
+      });
   }
 }

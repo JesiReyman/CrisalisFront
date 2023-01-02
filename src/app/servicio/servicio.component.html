@@ -1,0 +1,31 @@
+<div class="d-flex flex-column container-fluid mx-0 seccion">
+  <div class="d-flex container titulo-seccion align-items-center">
+     <h1>Servicios</h1>
+     <div>
+      <button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>
+     </div>
+  </div>
+  <div class="container table-responsive">
+    <table class="table align-middle tabla-servicios">
+      <thead class="table-light">
+        <tr>
+          <th>Servicio</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Precio de soporte</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr app-servicio-item *ngFor="let servicio of listaServicios" [servicioItem]="servicio" (aceptoBorrar)="eliminar($event)" (servicioEditado)="editar($event)">
+        </tr>
+      </tbody>
+
+
+
+    </table>
+
+  </div>
+</div>
+

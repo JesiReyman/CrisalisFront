@@ -9,13 +9,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductoComponent } from './producto/producto.component';
-import { ProductoItemComponent } from './producto-item/producto-item.component';
+import { ProductoItemComponent } from './producto/producto-item/producto-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { DeleteDialogComponent } from './Dialogs/delete-dialog/delete-dialog.component';
 import { AddDialogComponent } from './Dialogs/add-dialog/add-dialog.component';
+import { ServicioComponent } from './servicio/servicio.component';
+import { ServicioItemComponent } from './servicio/servicio-item/servicio-item.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { AddDialogComponent } from './Dialogs/add-dialog/add-dialog.component';
     ProductoComponent,
     ProductoItemComponent,
     DeleteDialogComponent,
-    AddDialogComponent
+    AddDialogComponent,
+    ServicioComponent,
+    ServicioItemComponent
   ],
   imports: [
     BrowserModule,

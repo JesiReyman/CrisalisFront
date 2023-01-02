@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
-import { DeleteDialogComponent } from '../Dialogs/delete-dialog/delete-dialog.component';
-import { Producto } from '../model/Producto';
-import { ProductoService } from '../services/producto.service';
+import { AddDialogComponent } from '../../Dialogs/add-dialog/add-dialog.component';
+import { DeleteDialogComponent } from '../../Dialogs/delete-dialog/delete-dialog.component';
+import { Producto } from '../../model/Producto';
 
 @Component({
   selector: 'tr[app-producto-item]',

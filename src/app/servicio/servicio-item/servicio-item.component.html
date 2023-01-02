@@ -1,0 +1,8 @@
+<td>{{servicioItem.nombre}}</td>
+<td>{{servicioItem.descripcion}}</td>
+<td>{{servicioItem.precioBase}}</td>
+<td>${{servicioItem.precioSoporte}}</td>
+<td class="d-flex justify-content-around">
+  <button type="button" class="btn btn-primary" (click)="onEdit(servicioItem)">Editar</button>
+  <button type="button" class="btn btn-danger" (click)="onDelete(servicioItem.nombre)">Eliminar</button>
+</td>
