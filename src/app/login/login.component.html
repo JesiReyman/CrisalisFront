@@ -1,21 +1,23 @@
 <div class="container d-flex flex-column align-items-center">
   <div class="container form-container mt-5">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form class="d-flex flex-column" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <legend>Iniciar Sesión</legend>
 
-      <div class="form-group col-sm-6">
+      <mat-form-field appearance="outline">
 
-        <label for="nombreUsuario" class="form-label">Usuario:</label>
-        <input type="text" id="nombreUsuario" formControlName="nombreUsuario">
-      </div>
+        <mat-label for="nombreUsuario" class="form-label">Usuario</mat-label>
+        <input matInput type="text" id="nombreUsuario" formControlName="nombreUsuario">
+        <mat-icon matPrefix>account_circle</mat-icon>
+      </mat-form-field>
 
-      <div class="form-group col-sm-6">
-        <label for="password" class="form-label">Password:</label>
-        <input type="password" id="password" formControlName="password">
-      </div>
+      <mat-form-field appearance="outline">
+        <mat-label for="password" class="form-label">Password</mat-label>
+        <input matInput type="password" id="password" formControlName="password">
+        <mat-icon matPrefix>key</mat-icon>
+      </mat-form-field>
 
 
-      <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">Ingresar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Ingresar</button>
     </form>
   </div>
 

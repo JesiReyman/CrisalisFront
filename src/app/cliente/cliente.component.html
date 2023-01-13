@@ -1,0 +1,31 @@
+<div class="d-flex flex-column container-fluid mx-0 seccion">
+  <div class="d-flex container titulo-seccion align-items-center">
+     <h1>Clientes</h1>
+     <div>
+      <button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>
+     </div>
+     <mat-form-field appearance="fill">
+      <mat-label>Buscar cliente por DNI</mat-label>
+      <input matInput [(ngModel)]="dniCliente" />
+      <mat-icon matPrefix (click)="filtrarCliente(dniCliente)">search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="container table-responsive">
+    <table  class="table align-middle tabla-cliente-persona" >
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>DNI</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr app-cliente-persona *ngFor="let cliente of listaPersonasClientes" [personaCliente]="cliente" (aceptoBorrar)="eliminar($event)" (clienteEditado)="editar($event)">
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

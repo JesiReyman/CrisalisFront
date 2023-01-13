@@ -1,0 +1,9 @@
+<td>{{empresaCliente.razonSocial}}</td>
+<td>{{empresaCliente.fechaInicio}}</td>
+<td>{{empresaCliente.cuit}}</td>
+
+<td class="d-flex justify-content-around">
+  <button type="button" class="btn btn-primary" (click)="onEdit(empresaCliente)">Editar</button>
+  <button type="button" class="btn btn-danger" (click)="onDelete(empresaCliente)">Eliminar</button>
+  <button type="button" mat-raised-button color="accent">Realizar Pedido</button>
+</td>

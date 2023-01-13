@@ -1,6 +1,6 @@
 export class CamposFormulario {
     key: string;
-    value: string | number;
+    value: string | number | Date;
     label: string;
     type: string;
     required: boolean;
