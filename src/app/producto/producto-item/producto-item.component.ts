@@ -1,8 +1,13 @@
+import { AgregarItemPedidoService } from './../../services/agregar-item-pedido.service';
+import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddDialogComponent } from '../../Dialogs/add-dialog/add-dialog.component';
 import { DeleteDialogComponent } from '../../Dialogs/delete-dialog/delete-dialog.component';
 import { Producto } from '../../model/Producto';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ProductoPedido } from 'src/app/model/ProductoPedido';
 
 @Component({
   selector: 'tr[app-producto-item]',
@@ -13,9 +18,16 @@ export class ProductoItemComponent implements OnInit {
   @Input() productoItem: Producto = <Producto>{};
   @Output() aceptoBorrar = new EventEmitter<string>();
   @Output() productoEditado = new EventEmitter<{nombreProducto: string, producto: Producto}>();
-  constructor(private dialog: MatDialog) { }
+  campoCantidad: FormGroup = {} as FormGroup;
+
+
+  constructor(private dialog: MatDialog, public router: Router, private agregarItemPedido: AgregarItemPedidoService) { }
 
   ngOnInit(): void {
+    this.campoCantidad = new FormGroup({
+      cantidad: new FormControl(),
+      aniosGarantia: new FormControl(),
+  });
   }
 
   onDelete(nombre: string): void {
@@ -53,6 +65,17 @@ export class ProductoItemComponent implements OnInit {
         this.productoEditado.emit({nombreProducto: producto.nombre, producto: productoEditado});
       }
     });
+  }
+
+  agregar(){}
+
+  submit(item: Producto){
+
+    const cantidadGarantia = this.campoCantidad.value ;
+
+    const productoPedido = new ProductoPedido(item, cantidadGarantia.cantidad, cantidadGarantia.aniosGarantia);
+
+    this.agregarItemPedido.item.next(productoPedido);
   }
 
 }

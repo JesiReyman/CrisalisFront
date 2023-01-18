@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AddDialogComponent } from './../Dialogs/add-dialog/add-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductoService } from './../services/producto.service';
@@ -14,7 +15,8 @@ export class ProductoComponent implements OnInit {
   public listaProductos: Producto[] = [];
   constructor(
     private productoService: ProductoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public router: Router
   ) {}
 
   ngOnInit(): void {

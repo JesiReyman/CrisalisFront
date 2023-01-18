@@ -1,0 +1,37 @@
+<app-producto></app-producto>
+
+<div class="container">
+  <h1>Pedido</h1>
+</div>
+<div class="container table-responsive">
+  <table class="table align-middle tabla-pedido">
+    <thead class="table-light">
+      <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Años de Garantía</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+       <tr app-item-pedido *ngFor="let item of listaItemsPedidos" [itemPedido]="item">
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><button mat-raised-button color="primary" (click)="confirmarPedido()">Confirmar</button></td>
+      </tr>
+    </tfoot>
+
+  </table>
+
+</div>
+
+

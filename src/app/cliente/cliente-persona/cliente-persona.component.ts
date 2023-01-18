@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AgregarItemPedidoService } from './../../services/agregar-item-pedido.service';
 import { ClientePersona } from './../../model/ClientePersona';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -13,7 +15,7 @@ export class ClientePersonaComponent implements OnInit {
   @Input() personaCliente: ClientePersona = <ClientePersona>{};
   @Output() aceptoBorrar = new EventEmitter<number>();
   @Output() clienteEditado = new EventEmitter<{dniCliente: number, clienteEditado: ClientePersona}>();
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private gestionarPedido: AgregarItemPedidoService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -54,6 +56,11 @@ export class ClientePersonaComponent implements OnInit {
           this.aceptoBorrar.emit(cliente.dni);
         }
       });
+  }
+
+  onPedido(dni: number){
+    this.gestionarPedido.idCliente.next(dni);
+    this.router.navigate(['/pedidos']);
   }
 
 }

@@ -2,9 +2,37 @@
 <td>{{productoItem.descripcion}}</td>
 <td>{{productoItem.stock}}</td>
 <td>${{productoItem.precioBase}}</td>
-<td class="d-flex justify-content-around">
+<td class="d-flex justify-content-around" *ngIf="router.url === '/productos'">
   <button type="button" class="btn btn-primary" (click)="onEdit(productoItem)">Editar</button>
   <button type="button" class="btn btn-danger" (click)="onDelete(productoItem.nombre)">Eliminar</button>
+</td>
+<td class="d-flex " *ngIf="router.url === '/pedidos'" >
+  <form class="d-flex justify-content-around" style="width: 100%;" [formGroup]="campoCantidad" (ngSubmit)="submit(productoItem)">
+    <mat-form-field>
+      <input
+        type="number"
+        class="form-control"
+        matInput
+        name="value"
+        placeholder="Cantidad"
+        formControlName="cantidad">
+
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        type="number"
+        class="form-control"
+        matInput
+        name="value"
+        placeholder="Años de garantía"
+        formControlName="aniosGarantia">
+
+    </mat-form-field>
+    <button  mat-stroked-button color="warn" type="submit">Agregar</button>
+  </form>
+
+
+
 </td>
 
 

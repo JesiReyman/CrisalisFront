@@ -1,3 +1,4 @@
+import { ArmarPedidoComponent } from './armar-pedido/armar-pedido.component';
 import { EmpresaClienteComponent } from './empresa-cliente/empresa-cliente.component';
 import { ProductoComponent } from './producto/producto.component';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'servicios', component: ServicioComponent },
   { path: 'cliente-persona', component: ClienteComponent },
   { path: 'cliente-empresa', component: EmpresaClienteComponent },
+  { path: 'pedidos', component: ArmarPedidoComponent },
 ];
 
 @NgModule({

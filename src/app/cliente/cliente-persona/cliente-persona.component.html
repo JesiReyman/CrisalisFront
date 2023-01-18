@@ -5,5 +5,5 @@
 <td class="d-flex justify-content-around">
   <button type="button" class="btn btn-primary" (click)="onEdit(personaCliente)">Editar</button>
   <button type="button" class="btn btn-danger" (click)="onDelete(personaCliente)">Eliminar</button>
-  <button type="button" mat-raised-button color="accent">Realizar Pedido</button>
+  <button type="button" mat-raised-button color="accent" (click)="onPedido(personaCliente.dni)">Realizar Pedido</button>
 </td>

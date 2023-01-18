@@ -25,6 +25,8 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { ClientePersonaComponent } from './cliente/cliente-persona/cliente-persona.component';
 import { EmpresaClienteComponent } from './empresa-cliente/empresa-cliente.component';
 import { EmpresaItemComponent } from './empresa-cliente/empresa-item/empresa-item.component';
+import { ArmarPedidoComponent } from './armar-pedido/armar-pedido.component';
+import { ItemPedidoComponent } from './armar-pedido/item-pedido/item-pedido.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { EmpresaItemComponent } from './empresa-cliente/empresa-item/empresa-ite
     ClienteComponent,
     ClientePersonaComponent,
     EmpresaClienteComponent,
-    EmpresaItemComponent
+    EmpresaItemComponent,
+    ArmarPedidoComponent,
+    ItemPedidoComponent
   ],
   imports: [
     BrowserModule,
