@@ -3,12 +3,12 @@ import { CamposFormulario } from "./CamposFormulario";
 export class EmpresaCliente {
   razonSocial: string;
   fechaInicio: Date;
-  cuit: number;
+  dniOCuit: number;
 
   constructor(razonSocial: string, fechaInicio: Date, cuit: number) {
     this.razonSocial = razonSocial;
     this.fechaInicio = fechaInicio;
-    this.cuit = cuit;
+    this.dniOCuit = cuit;
 
   }
 
@@ -16,7 +16,7 @@ export class EmpresaCliente {
     let campos = [];
     let valores : [string, Date, number];
     if (item){
-      valores = [item.razonSocial, item.fechaInicio, item.cuit];
+      valores = [item.razonSocial, item.fechaInicio, item.dniOCuit];
     } else{
       valores = ['', new Date(), 0];
     }
@@ -36,7 +36,7 @@ export class EmpresaCliente {
         required: false,
       },
       {
-        key: 'cuit',
+        key: 'dniOCuit',
         value: valores[2],
         label: 'CUIT',
         type: 'number',

@@ -1,4 +1,12 @@
-<app-producto></app-producto>
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab label="Productos">
+    <app-producto></app-producto>
+  </mat-tab>
+  <mat-tab label="Servicios">
+    <app-servicio></app-servicio>
+  </mat-tab>
+
+</mat-tab-group>
 
 <div class="container">
   <h1>Pedido</h1>
@@ -11,21 +19,27 @@
         <th>Precio</th>
         <th>Cantidad</th>
         <th>Años de Garantía</th>
+        <th>Total impuestos</th>
+        <th>Precio total unitario</th>
+        <th>Total</th>
         <th></th>
       </tr>
     </thead>
 
     <tbody>
-       <tr app-item-pedido *ngFor="let item of listaItemsPedidos" [itemPedido]="item">
+       <tr app-item-pedido *ngFor="let item of listaItemsPedidos" [itemPedido]="item" (eliminarItem)="eliminar($event)">
       </tr>
     </tbody>
 
     <tfoot>
       <tr>
         <td></td>
+        <td>{{pedido.precioBase}}</td>
         <td></td>
         <td></td>
+        <td>{{pedido.totalImpuestos}}</td>
         <td></td>
+        <td>{{pedido.total}}</td>
         <td><button mat-raised-button color="primary" (click)="confirmarPedido()">Confirmar</button></td>
       </tr>
     </tfoot>

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServicioService } from './../services/servicio.service';
 import { Servicio } from './../model/Servicio';
@@ -13,7 +14,7 @@ import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
 export class ServicioComponent implements OnInit {
   listaServicios: Servicio[] = [];
 
-  constructor(private servicioService: ServicioService, private dialog: MatDialog) { }
+  constructor(private servicioService: ServicioService, private dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
     this.listaDeServicios();

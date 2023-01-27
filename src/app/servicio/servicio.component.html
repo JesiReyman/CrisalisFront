@@ -1,5 +1,5 @@
 <div class="d-flex flex-column container-fluid mx-0 seccion">
-  <div class="d-flex container titulo-seccion align-items-center">
+  <div class="d-flex container titulo-seccion align-items-center" *ngIf="router.url === '/servicios'">
      <h1>Servicios</h1>
      <div>
       <button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>

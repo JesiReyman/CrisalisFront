@@ -5,13 +5,15 @@ export class CamposFormulario {
     type: string;
     required: boolean;
     pattern?: string;
+    options?: string[];
 
-    constructor(key: string, value: string | number, label: string, type: string, required: boolean, pattern?: string) {
+    constructor(key: string, value: string | number, label: string, type: string, required: boolean, pattern?: string, options?: string[]) {
         this.key = key;
         this.value = value;
         this.label = label;
         this.type = type;
         this.required = required;
         this.pattern = pattern;
+        this.options = options;
     }
 }

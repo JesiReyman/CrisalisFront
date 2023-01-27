@@ -67,13 +67,11 @@ export class ProductoItemComponent implements OnInit {
     });
   }
 
-  agregar(){}
-
   submit(item: Producto){
 
     const cantidadGarantia = this.campoCantidad.value ;
 
-    const productoPedido = new ProductoPedido(item, cantidadGarantia.cantidad, cantidadGarantia.aniosGarantia);
+    const productoPedido = new ProductoPedido(item, cantidadGarantia.cantidad, cantidadGarantia.aniosGarantia, 0 , 0);
 
     this.agregarItemPedido.item.next(productoPedido);
   }

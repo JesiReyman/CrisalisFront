@@ -1,3 +1,4 @@
+import { ImpuestosComponent } from './impuestos/impuestos.component';
 import { ArmarPedidoComponent } from './armar-pedido/armar-pedido.component';
 import { EmpresaClienteComponent } from './empresa-cliente/empresa-cliente.component';
 import { ProductoComponent } from './producto/producto.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'cliente-persona', component: ClienteComponent },
   { path: 'cliente-empresa', component: EmpresaClienteComponent },
   { path: 'pedidos', component: ArmarPedidoComponent },
+  { path: 'impuestos', component: ImpuestosComponent },
 ];
 
 @NgModule({

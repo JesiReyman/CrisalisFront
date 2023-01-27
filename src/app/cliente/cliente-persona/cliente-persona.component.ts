@@ -35,7 +35,7 @@ export class ClientePersonaComponent implements OnInit {
     this.dialog.open(AddDialogComponent, dialogConfig)
     .afterClosed().subscribe(clienteEditado => {
       if(clienteEditado){
-        this.clienteEditado.emit({dniCliente: persona.dni, clienteEditado: clienteEditado});
+        this.clienteEditado.emit({dniCliente: persona.dniOCuit, clienteEditado: clienteEditado});
       }
     });
   }
@@ -53,7 +53,7 @@ export class ClientePersonaComponent implements OnInit {
       .afterClosed()
       .subscribe((confirmado) => {
         if (confirmado) {
-          this.aceptoBorrar.emit(cliente.dni);
+          this.aceptoBorrar.emit(cliente.dniOCuit);
         }
       });
   }

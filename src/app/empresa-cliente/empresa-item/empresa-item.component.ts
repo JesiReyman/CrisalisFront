@@ -33,7 +33,7 @@ export class EmpresaItemComponent implements OnInit {
     this.dialog.open(AddDialogComponent, dialogConfig)
     .afterClosed().subscribe(empresaEditada => {
       if(empresaEditada){
-        this.empresaEditada.emit({cuitEmpresa: empresaCliente.cuit, empresaEditada: empresaEditada});
+        this.empresaEditada.emit({cuitEmpresa: empresaCliente.dniOCuit, empresaEditada: empresaEditada});
       }
     });
   }
@@ -51,7 +51,7 @@ export class EmpresaItemComponent implements OnInit {
       .afterClosed()
       .subscribe((confirmado) => {
         if (confirmado) {
-          this.aceptoBorrar.emit(empresaCliente.cuit);
+          this.aceptoBorrar.emit(empresaCliente.dniOCuit);
         }
       });
   }

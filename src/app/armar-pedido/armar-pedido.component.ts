@@ -1,5 +1,6 @@
+import { Pedido } from './../model/Pedido';
 import { HttpErrorResponse } from '@angular/common/http';
-import { PedidoService } from './../services/Pedido.service';
+import { ItemPedidoService } from '../services/ItemPedido.service';
 import { ProductoPedido } from 'src/app/model/ProductoPedido';
 import { AgregarItemPedidoService } from './../services/agregar-item-pedido.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -14,43 +15,17 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
   listaItemsPedidos: ProductoPedido[] = [];
   idCliente: number = 0;
   private unsubscribe = new Subject<void>();
+  pedido: Pedido = {} as Pedido;
 
 
   constructor(
     private agregarItemPedido: AgregarItemPedidoService,
-    private pedidoService: PedidoService
+    private itemPedidoService: ItemPedidoService
   ) {}
 
   ngOnInit(): void {
 
-    //console.log("ngoninit " + this.listaItemsPedidos)
-    //this.agregarALista();
-    /*this.agregarItemPedido.agregarItem$
-
-      .subscribe((data) => {
-        //console.log('dentro del subscribe');
-        //console.log(this.listaItemsPedidos);
-
-        if (this.listaItemsPedidos.length == 0) {
-          this.listaItemsPedidos.push(data);
-        } else {
-          let itemRepetido = this.listaItemsPedidos.find(
-            (pedido) => pedido.nombre === data.nombre
-          );
-          console.log(
-            'este es el item repetido: ' + JSON.stringify(itemRepetido)
-          );
-          if (!itemRepetido) {
-            this.listaItemsPedidos.push(data);
-          } else {
-            itemRepetido['cantidad'] = data.cantidad;
-            itemRepetido['aniosGarantia'] = data.aniosGarantia;
-          }
-        }
-      });*/
-
     this.agregarALista();
-
 
   }
 
@@ -63,26 +38,54 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
     this.agregarItemPedido.agregarItem$
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((data) => {
-        console.log('dentro del subscribe');
-        //console.log(this.listaItemsPedidos);
+        console.log('dentro del subscribe de armar pedido y llego: ' + JSON.stringify(data));
 
+        this.estimarItem(data);
+      });
+  }
+
+  estimarItem(item: ProductoPedido){
+    this.itemPedidoService.estimarItemPedido(item).subscribe({
+      next: (itemEstimado) => {
+        itemEstimado['precioTotal'] = itemEstimado.cantidad * itemEstimado.precioFinalUnitario;
+        console.log("el item estimado es: " + JSON.stringify(itemEstimado))
         if (this.listaItemsPedidos.length == 0) {
-          this.listaItemsPedidos.push(data);
+
+          this.listaItemsPedidos.push(itemEstimado);
         } else {
           let itemRepetido = this.listaItemsPedidos.find(
-            (pedido) => pedido.nombre === data.nombre
+            (pedido) => pedido.nombre === itemEstimado.nombre
           );
           console.log(
             'este es el item repetido: ' + JSON.stringify(itemRepetido)
           );
           if (!itemRepetido) {
-            this.listaItemsPedidos.push(data);
+
+            this.listaItemsPedidos.push(itemEstimado);
           } else {
-            itemRepetido['cantidad'] = data.cantidad;
-            itemRepetido['aniosDeGarantia'] = data.aniosDeGarantia;
+            this.listaItemsPedidos[this.listaItemsPedidos.indexOf(itemRepetido)] = itemEstimado;
+
           }
         }
-      });
+
+        this.estimarPedido();
+
+      },
+      error: (error: HttpErrorResponse) => {console.log(error)}
+    })
+  }
+
+  estimarPedido(){
+    let precioBase = 0;
+    let totalImpuestos = 0;
+    let total = 0;
+    this.listaItemsPedidos.forEach(itemPedido => {
+      precioBase += itemPedido.precioBase;
+      totalImpuestos += itemPedido.cantidad * itemPedido.impuestoIVA;
+      total += itemPedido.cantidad * itemPedido.precioFinalUnitario;
+    });
+
+    this.pedido = new Pedido(0, precioBase, totalImpuestos, total);
   }
 
   confirmarPedido() {
@@ -93,15 +96,20 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
 
         this.idCliente = idCliente;
         console.log("estoy recibiendo el id del cliente en confirmar pedido: " + this.idCliente)
-        this.pedidoService.realizarPedido(this.idCliente, this.listaItemsPedidos).subscribe({
+        this.itemPedidoService.realizarPedido(this.idCliente, this.listaItemsPedidos).subscribe({
           next: (pedido) => {console.log('guarde el pedido')},
           error: (error: HttpErrorResponse) => {console.log(error.message)},
         }
 
-
         )
 
       });
-    //console.log('este es el dni del cliente: ' + this.idCliente);
+
+  }
+
+  eliminar(item: ProductoPedido){
+    console.log("quiero eliminar lo siguiente: " + JSON.stringify(item));
+    const index = this.listaItemsPedidos.indexOf(item);
+    this.listaItemsPedidos.splice(index, 1);
   }
 }

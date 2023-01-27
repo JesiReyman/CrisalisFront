@@ -16,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 import { DeleteDialogComponent } from './Dialogs/delete-dialog/delete-dialog.component';
 import { AddDialogComponent } from './Dialogs/add-dialog/add-dialog.component';
 import { ServicioComponent } from './servicio/servicio.component';
@@ -27,6 +29,8 @@ import { EmpresaClienteComponent } from './empresa-cliente/empresa-cliente.compo
 import { EmpresaItemComponent } from './empresa-cliente/empresa-item/empresa-item.component';
 import { ArmarPedidoComponent } from './armar-pedido/armar-pedido.component';
 import { ItemPedidoComponent } from './armar-pedido/item-pedido/item-pedido.component';
+import { ImpuestosComponent } from './impuestos/impuestos.component';
+import { ImpuestoItemComponent } from './impuestos/impuesto-item/impuesto-item.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,9 @@ import { ItemPedidoComponent } from './armar-pedido/item-pedido/item-pedido.comp
     EmpresaClienteComponent,
     EmpresaItemComponent,
     ArmarPedidoComponent,
-    ItemPedidoComponent
+    ItemPedidoComponent,
+    ImpuestosComponent,
+    ImpuestoItemComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +63,9 @@ import { ItemPedidoComponent } from './armar-pedido/item-pedido/item-pedido.comp
     MatButtonModule,
     MatInputModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    MatTabsModule,
+    MatSelectModule
   ],
   providers: [
     {

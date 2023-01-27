@@ -1,8 +1,12 @@
+import { Router } from '@angular/router';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddDialogComponent } from 'src/app/Dialogs/add-dialog/add-dialog.component';
 import { DeleteDialogComponent } from 'src/app/Dialogs/delete-dialog/delete-dialog.component';
 import { Servicio } from 'src/app/model/Servicio';
+import { FormControl, FormGroup } from '@angular/forms';
+import { AgregarItemPedidoService } from 'src/app/services/agregar-item-pedido.service';
+import { ProductoPedido } from 'src/app/model/ProductoPedido';
 
 @Component({
   selector: 'tr[app-servicio-item]',
@@ -13,9 +17,15 @@ export class ServicioItemComponent implements OnInit {
   @Input() servicioItem: Servicio = <Servicio>{};
   @Output() aceptoBorrar: EventEmitter<string> = new EventEmitter;
   @Output() servicioEditado: EventEmitter<{nombreServicio: string, servicioEditado: Servicio}> = new EventEmitter;
-  constructor(private dialog: MatDialog) { }
+  campoCantidad: FormGroup = {} as FormGroup;
+
+  constructor(private dialog: MatDialog, public router: Router, private agregarItemPedido: AgregarItemPedidoService) { }
 
   ngOnInit(): void {
+    this.campoCantidad = new FormGroup({
+      cantidad: new FormControl(),
+
+  });
   }
 
   onDelete(nombreServicio: string): void {
@@ -52,6 +62,15 @@ export class ServicioItemComponent implements OnInit {
         this.servicioEditado.emit({nombreServicio: servicio.nombre, servicioEditado: servicioEditado});
       }
     });
+  }
+
+  submit(item: Servicio){
+
+    const cantidad = this.campoCantidad.value ;
+
+    const productoPedido = new ProductoPedido(item, cantidad.cantidad, 0, 0 , 0);
+
+    this.agregarItemPedido.item.next(productoPedido);
   }
 
 }
