@@ -6,7 +6,7 @@
   <button type="button" class="btn btn-primary" (click)="onEdit(productoItem)">Editar</button>
   <button type="button" class="btn btn-danger" (click)="onDelete(productoItem.nombre)">Eliminar</button>
 </td>
-<td class="d-flex " *ngIf="router.url === '/pedidos'" >
+<td class="d-flex " *ngIf="router.url === '/realizarPedido'" >
   <form class="d-flex justify-content-around" style="width: 100%;" [formGroup]="campoCantidad" (ngSubmit)="submit(productoItem)">
     <mat-form-field>
       <input

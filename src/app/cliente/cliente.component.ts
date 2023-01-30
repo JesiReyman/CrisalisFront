@@ -1,23 +1,34 @@
+import { Router } from '@angular/router';
 import { ClientePersonaService } from './../services/cliente-persona.service';
 import { ClientePersona } from './../model/ClientePersona';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.css']
+  styleUrls: ['./cliente.component.css'],
 })
 export class ClienteComponent implements OnInit {
   public listaPersonasClientes: ClientePersona[] = [];
-  dniCliente: number = 0;
-  constructor(private clientePersonaService: ClientePersonaService,
-    private dialog: MatDialog) { }
+  @Input() dniPersona: number = 0;
+  personaAsociadaEmpresa: any;
+
+  constructor(
+    private clientePersonaService: ClientePersonaService,
+    private dialog: MatDialog,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getListaPersonasClientes();
+    console.log("en cliente llego el siguiente dni: " + this.dniPersona)
+    this.personaSeleccionada(this.dniPersona)
+    console.log("esta es la persona asociada a esta empresa: " + JSON.stringify(this.personaAsociadaEmpresa));
   }
 
   getListaPersonasClientes() {
@@ -29,7 +40,7 @@ export class ClienteComponent implements OnInit {
     });
   }
 
-  agregar(){
+  agregar() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -46,8 +57,7 @@ export class ClienteComponent implements OnInit {
       .afterClosed()
       .subscribe((cliente) => {
         if (cliente) {
-          this.clientePersonaService.agregarCliente(cliente)
-          .subscribe({
+          this.clientePersonaService.agregarCliente(cliente).subscribe({
             next: () => {
               this.getListaPersonasClientes();
             },
@@ -57,7 +67,7 @@ export class ClienteComponent implements OnInit {
       });
   }
 
-  eliminar(dniCliente: number){
+  eliminar(dniCliente: number) {
     console.log(dniCliente);
     this.clientePersonaService.eliminarCliente(dniCliente).subscribe({
       next: () => {
@@ -78,7 +88,18 @@ export class ClienteComponent implements OnInit {
       });
   }
 
-  filtrarCliente(dniCliente: number){
+  filtrarCliente(dniCliente: number) {
     const dni = dniCliente;
+  }
+
+  personaSeleccionada(dniPersona: number) {
+    if (dniPersona) {
+      console.log()
+      if (this.listaPersonasClientes.some((p) => p.dniOCuit === dniPersona)) {
+        this.personaAsociadaEmpresa = this.listaPersonasClientes.find(
+          (p) => p.dniOCuit === dniPersona
+        );
+      }
+    }
   }
 }

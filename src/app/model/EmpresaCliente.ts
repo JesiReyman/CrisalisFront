@@ -1,14 +1,17 @@
+import { ClientePersona } from './ClientePersona';
 import { CamposFormulario } from "./CamposFormulario";
 
 export class EmpresaCliente {
   razonSocial: string;
   fechaInicio: Date;
   dniOCuit: number;
+  dniPersona: number;
 
-  constructor(razonSocial: string, fechaInicio: Date, cuit: number) {
+  constructor(razonSocial: string, fechaInicio: Date, cuit: number, dniPersona: number) {
     this.razonSocial = razonSocial;
     this.fechaInicio = fechaInicio;
     this.dniOCuit = cuit;
+    this.dniPersona = dniPersona;
 
   }
 
@@ -43,6 +46,7 @@ export class EmpresaCliente {
         required: true,
         pattern: '^[0-9]*$'
       },
+
 
     ];
     return campos;

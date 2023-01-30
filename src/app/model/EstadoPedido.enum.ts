@@ -1,5 +1,5 @@
 export enum EstadoPedido {
-  "TODOS",
-  "PRODUCTOS",
-  "SERVICIOS"
+  PENDIENTE = "PENDIENTE",
+  CONFIRMADO = "CONFIRMADO",
+  CANCELADO = "CANCELADO"
 }

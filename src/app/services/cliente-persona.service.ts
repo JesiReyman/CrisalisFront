@@ -26,4 +26,8 @@ export class ClientePersonaService {
   public editarCliente(dniCliente: number, cliente: ClientePersona): Observable<ClientePersona>{
     return this.http.put<ClientePersona>(this.clienteURL + `/editar/${dniCliente}`, cliente)
   }
+
+  public obtenerPersonaCliente(dniCliente: number): Observable<ClientePersona>{
+    return this.http.get<ClientePersona>(this.clienteURL + `/${dniCliente}`);
+  }
 }

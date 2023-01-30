@@ -1,3 +1,5 @@
+import { PedidosComponent } from './pedidos/pedidos.component';
+import { VerificacionEmpresaComponent } from './verificacion-empresa/verificacion-empresa.component';
 import { ImpuestosComponent } from './impuestos/impuestos.component';
 import { ArmarPedidoComponent } from './armar-pedido/armar-pedido.component';
 import { EmpresaClienteComponent } from './empresa-cliente/empresa-cliente.component';
@@ -14,8 +16,10 @@ const routes: Routes = [
   { path: 'servicios', component: ServicioComponent },
   { path: 'cliente-persona', component: ClienteComponent },
   { path: 'cliente-empresa', component: EmpresaClienteComponent },
-  { path: 'pedidos', component: ArmarPedidoComponent },
+  { path: 'realizarPedido', component: ArmarPedidoComponent },
   { path: 'impuestos', component: ImpuestosComponent },
+  { path: 'verificacion', component: VerificacionEmpresaComponent },
+  { path: 'pedidos', component: PedidosComponent },
 ];
 
 @NgModule({

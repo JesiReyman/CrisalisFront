@@ -1,3 +1,6 @@
+import { Router } from '@angular/router';
+import { EstadoPedido } from './../model/EstadoPedido.enum';
+import { PedidoService } from './../services/pedido.service';
 import { Pedido } from './../model/Pedido';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ItemPedidoService } from '../services/ItemPedido.service';
@@ -20,7 +23,9 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
 
   constructor(
     private agregarItemPedido: AgregarItemPedidoService,
-    private itemPedidoService: ItemPedidoService
+    private itemPedidoService: ItemPedidoService,
+    private pedidoService: PedidoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -81,11 +86,11 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
     let total = 0;
     this.listaItemsPedidos.forEach(itemPedido => {
       precioBase += itemPedido.precioBase;
-      totalImpuestos += itemPedido.cantidad * itemPedido.impuestoIVA;
+      totalImpuestos += itemPedido.cantidad * itemPedido.totalImpuestos;
       total += itemPedido.cantidad * itemPedido.precioFinalUnitario;
     });
 
-    this.pedido = new Pedido(0, precioBase, totalImpuestos, total);
+    this.pedido = new Pedido(0, 0, EstadoPedido.PENDIENTE , new Date , precioBase, totalImpuestos, total);
   }
 
   confirmarPedido() {
@@ -96,8 +101,11 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
 
         this.idCliente = idCliente;
         console.log("estoy recibiendo el id del cliente en confirmar pedido: " + this.idCliente)
-        this.itemPedidoService.realizarPedido(this.idCliente, this.listaItemsPedidos).subscribe({
-          next: (pedido) => {console.log('guarde el pedido')},
+        this.pedidoService.realizarPedido(this.idCliente, this.listaItemsPedidos).subscribe({
+          next: (pedido) => {
+            console.log('guarde el pedido')
+            this.router.navigate(['/pedidos'])
+          },
           error: (error: HttpErrorResponse) => {console.log(error.message)},
         }
 

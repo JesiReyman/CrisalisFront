@@ -1,3 +1,4 @@
+import { ClientePersona } from './ClientePersona';
 export class CamposFormulario {
     key: string;
     value: string | number | Date;

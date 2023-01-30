@@ -18,6 +18,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { DeleteDialogComponent } from './Dialogs/delete-dialog/delete-dialog.component';
 import { AddDialogComponent } from './Dialogs/add-dialog/add-dialog.component';
 import { ServicioComponent } from './servicio/servicio.component';
@@ -31,6 +34,9 @@ import { ArmarPedidoComponent } from './armar-pedido/armar-pedido.component';
 import { ItemPedidoComponent } from './armar-pedido/item-pedido/item-pedido.component';
 import { ImpuestosComponent } from './impuestos/impuestos.component';
 import { ImpuestoItemComponent } from './impuestos/impuesto-item/impuesto-item.component';
+import { VerificacionEmpresaComponent } from './verificacion-empresa/verificacion-empresa.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
+import { PedidoParticularComponent } from './pedidos/pedido-particular/pedido-particular.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +56,10 @@ import { ImpuestoItemComponent } from './impuestos/impuesto-item/impuesto-item.c
     ArmarPedidoComponent,
     ItemPedidoComponent,
     ImpuestosComponent,
-    ImpuestoItemComponent
+    ImpuestoItemComponent,
+    VerificacionEmpresaComponent,
+    PedidosComponent,
+    PedidoParticularComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +74,10 @@ import { ImpuestoItemComponent } from './impuestos/impuesto-item/impuesto-item.c
     MatIconModule,
     MatTableModule,
     MatTabsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatExpansionModule
   ],
   providers: [
     {

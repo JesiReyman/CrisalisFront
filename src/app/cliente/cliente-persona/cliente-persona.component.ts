@@ -1,3 +1,4 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AgregarItemPedidoService } from './../../services/agregar-item-pedido.service';
 import { ClientePersona } from './../../model/ClientePersona';
@@ -13,11 +14,17 @@ import { AddDialogComponent } from 'src/app/Dialogs/add-dialog/add-dialog.compon
 })
 export class ClientePersonaComponent implements OnInit {
   @Input() personaCliente: ClientePersona = <ClientePersona>{};
+  @Input() index = 0;
   @Output() aceptoBorrar = new EventEmitter<number>();
   @Output() clienteEditado = new EventEmitter<{dniCliente: number, clienteEditado: ClientePersona}>();
-  constructor(private dialog: MatDialog, private gestionarPedido: AgregarItemPedidoService, private router: Router) { }
+  selectedRow: any;
+  @Input() dniPersona: number = 0;
+
+
+  constructor(private dialog: MatDialog, private gestionarPedido: AgregarItemPedidoService, public router: Router) { }
 
   ngOnInit(): void {
+    console.log("esto llewgo a cliente-persona" + this.dniPersona)
   }
 
   onEdit(persona: ClientePersona){
@@ -60,7 +67,14 @@ export class ClientePersonaComponent implements OnInit {
 
   onPedido(dni: number){
     this.gestionarPedido.idCliente.next(dni);
-    this.router.navigate(['/pedidos']);
+    this.router.navigate(['/realizarPedido']);
   }
+
+  seleccion(fila:any){
+    console.log("se ejecuto el evento de seleccion de radio button")
+    console.log(fila.value)
+  }
+
+
 
 }
