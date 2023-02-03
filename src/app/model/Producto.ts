@@ -4,12 +4,14 @@ export class Producto {
   descripcion: string;
   precioBase: number;
   stock: number;
+  tipo: string;
 
-  constructor(nombre: string, descripcion: string, precioBase: number, stock: number){
+  constructor(nombre: string, descripcion: string, precioBase: number, stock: number, tipo: string) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.precioBase = precioBase;
     this.stock = stock;
+    this.tipo = tipo;
   }
 
   static getCamposFormulario(item?: Producto): CamposFormulario[]{

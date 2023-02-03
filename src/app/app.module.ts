@@ -32,11 +32,11 @@ import { EmpresaClienteComponent } from './empresa-cliente/empresa-cliente.compo
 import { EmpresaItemComponent } from './empresa-cliente/empresa-item/empresa-item.component';
 import { ArmarPedidoComponent } from './armar-pedido/armar-pedido.component';
 import { ItemPedidoComponent } from './armar-pedido/item-pedido/item-pedido.component';
-import { ImpuestosComponent } from './impuestos/impuestos.component';
-import { ImpuestoItemComponent } from './impuestos/impuesto-item/impuesto-item.component';
-import { VerificacionEmpresaComponent } from './verificacion-empresa/verificacion-empresa.component';
+import { AdicionalComponent } from './impuestos/adicional.component';
+import { AdicionalItemComponent } from './impuestos/adicional-item/adicional-item.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { PedidoParticularComponent } from './pedidos/pedido-particular/pedido-particular.component';
+import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
 
 @NgModule({
   declarations: [
@@ -55,11 +55,11 @@ import { PedidoParticularComponent } from './pedidos/pedido-particular/pedido-pa
     EmpresaItemComponent,
     ArmarPedidoComponent,
     ItemPedidoComponent,
-    ImpuestosComponent,
-    ImpuestoItemComponent,
-    VerificacionEmpresaComponent,
+    AdicionalComponent,
+    AdicionalItemComponent,
     PedidosComponent,
-    PedidoParticularComponent
+    PedidoParticularComponent,
+    EditarPedidoComponent
   ],
   imports: [
     BrowserModule,

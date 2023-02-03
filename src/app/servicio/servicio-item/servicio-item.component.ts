@@ -68,7 +68,7 @@ export class ServicioItemComponent implements OnInit {
 
     const cantidad = this.campoCantidad.value ;
 
-    const productoPedido = new ProductoPedido(item, cantidad.cantidad, 0, 0 , 0);
+    const productoPedido = new ProductoPedido(item, cantidad.cantidad, 0, 0 , 0, 0, 0);
 
     this.agregarItemPedido.item.next(productoPedido);
   }

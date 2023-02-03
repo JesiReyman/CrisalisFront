@@ -75,8 +75,7 @@ export class EmpresaItemComponent implements OnInit {
   }
 
   realizarPedido(empresaCliente: EmpresaCliente) {
-    //this.router.navigate(['/verificacion']);
-    //this.empresaClienteService.setEmpresa(empresaCliente);
+
     if (!empresaCliente.dniPersona) {
       alert('Esta empresa no tiene ninguna persona registrada, por favor registre una');
       this.registrarPersona();

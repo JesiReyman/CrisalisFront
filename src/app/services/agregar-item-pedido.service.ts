@@ -8,6 +8,8 @@ import { ProductoPedido } from '../model/ProductoPedido';
 export class AgregarItemPedidoService {
   item: Subject<ProductoPedido> = new Subject<ProductoPedido>();
   agregarItem$ = this.item.asObservable();
+  dniOCuitCLiente = 0;
+  listaProductosPedidos: ProductoPedido[] = [];
 
   idCliente: Subject<number> = new BehaviorSubject<number>(0);
   idCliente$ = this.idCliente.asObservable();
@@ -24,6 +26,22 @@ export class AgregarItemPedidoService {
     this.idCliente$.subscribe(cliente => {
       this.idCliente.next(cliente);
     })
+  }
+
+  setDniOCuit(dniOCuit: number){
+    this.dniOCuitCLiente = dniOCuit;
+  }
+
+  getDniOCuit(){
+    return this.dniOCuitCLiente;
+  }
+
+  setListaProductosPedidos(listaProductos: ProductoPedido[]){
+    this.listaProductosPedidos = listaProductos;
+  }
+
+  getListaProductosPedidos(){
+    return this.listaProductosPedidos;
   }
 
 

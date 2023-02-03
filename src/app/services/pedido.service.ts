@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 })
 export class PedidoService {
   private pedidoURL = environment.apiUrl + '/pedido';
+  pedido: Pedido = <Pedido>{} ;
+
   constructor(private http: HttpClient) { }
 
   public realizarPedido(idCliente: number, listaItemsPedidos: ProductoPedido[]): Observable<Pedido> {
@@ -24,4 +26,13 @@ export class PedidoService {
   public cambiarEstado(idPedido: number, pedido: Pedido): Observable<Pedido> {
     return this.http.put<Pedido>(this.pedidoURL + `/${idPedido}/cambiarEstado`, pedido);
   }
+
+  setPedido(pedido: Pedido){
+    this.pedido = pedido;
+  }
+
+  getPedido(){
+    return this.pedido;
+  }
+
 }

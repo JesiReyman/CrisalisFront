@@ -1,3 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { ItemPedidoService } from './../../services/ItemPedido.service';
+
+import { PedidoService } from './../../services/pedido.service';
 import { AgregarItemPedidoService } from './../../services/agregar-item-pedido.service';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
@@ -8,6 +12,7 @@ import { DeleteDialogComponent } from '../../Dialogs/delete-dialog/delete-dialog
 import { Producto } from '../../model/Producto';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ProductoPedido } from 'src/app/model/ProductoPedido';
+import { Pedido } from 'src/app/model/Pedido';
 
 @Component({
   selector: 'tr[app-producto-item]',
@@ -19,11 +24,20 @@ export class ProductoItemComponent implements OnInit {
   @Output() aceptoBorrar = new EventEmitter<string>();
   @Output() productoEditado = new EventEmitter<{nombreProducto: string, producto: Producto}>();
   campoCantidad: FormGroup = {} as FormGroup;
+  listaProductosPedidos : ProductoPedido[] = [];
+  rutaActual='';
+  pedidoAEditar: Pedido = <Pedido>{};
 
 
-  constructor(private dialog: MatDialog, public router: Router, private agregarItemPedido: AgregarItemPedidoService) { }
+
+  constructor(private dialog: MatDialog, public router: Router, private agregarItemPedido: AgregarItemPedidoService, private pedidoService: PedidoService, private itemPedidoService: ItemPedidoService) { }
 
   ngOnInit(): void {
+    this.rutaActual = this.router.url;
+    this.getListaProductosPedidos();
+
+
+
     this.campoCantidad = new FormGroup({
       cantidad: new FormControl(),
       aniosGarantia: new FormControl(),
@@ -71,9 +85,35 @@ export class ProductoItemComponent implements OnInit {
 
     const cantidadGarantia = this.campoCantidad.value ;
 
-    const productoPedido = new ProductoPedido(item, cantidadGarantia.cantidad, cantidadGarantia.aniosGarantia, 0 , 0);
+    const productoPedido = new ProductoPedido(item, cantidadGarantia.cantidad, cantidadGarantia.aniosGarantia, 0 , 0, 0, 0);
 
     this.agregarItemPedido.item.next(productoPedido);
   }
+
+  getListaProductosPedidos(){
+    if(this.rutaActual.includes('editarPedido')){
+      this.pedidoAEditar = this.pedidoService.getPedido()
+      this.itemPedidoService.listaProductosPedidos(this.pedidoAEditar.id).subscribe({
+        next: (listaProductos) => {
+          this.listaProductosPedidos = listaProductos;
+          console.log("en item producto llego: " + JSON.stringify(this.listaProductosPedidos))
+          this.rellenarCampos()
+        },
+        error: (error: HttpErrorResponse) => { console.log(error.message);}
+      })
+    }
+
+  }
+
+  rellenarCampos(){
+    this.campoCantidad.patchValue({
+      cantidad: this.listaProductosPedidos.find(producto => producto.nombre === this.productoItem.nombre)?.cantidad,
+      aniosGarantia: this.listaProductosPedidos.find(producto => producto.nombre === this.productoItem.nombre)?.aniosDeGarantia,
+    })
+
+
+  }
+
+
 
 }

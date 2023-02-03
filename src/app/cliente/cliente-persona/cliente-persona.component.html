@@ -1,6 +1,4 @@
-<!-- TODO: considerar si es necesaria la pantalla de verificacion de cliente-->
-<td *ngIf="router.url === '/verificacion'"><mat-radio-button [value]="personaCliente" (change)="seleccion($event)"></mat-radio-button> </td>
-
+<td></td>
 <td>{{personaCliente.nombre}}</td>
 <td>{{personaCliente.apellido}}</td>
 <td>{{personaCliente.dniOCuit}}</td>
@@ -10,14 +8,6 @@
   <button type="button" class="btn btn-primary" (click)="onEdit(personaCliente)">Editar</button>
   <button type="button" class="btn btn-danger" (click)="onDelete(personaCliente)" *ngIf="router.url === '/cliente-persona'">Eliminar</button>
   <button type="button" mat-raised-button color="accent" (click)="onPedido(personaCliente.dniOCuit)" *ngIf="router.url === '/cliente-persona'">Realizar Pedido</button>
-  <!--
-  <mat-checkbox [checked]="seleccionado === index " (change)="seleccionado = index" *ngIf="router.url === '/verificacion'"></mat-checkbox>
-  <mat-radio-group *ngIf="router.url === '/verificacion'"  formControlName="persona">
-    <mat-radio-button class="example-margin" [value]="personaCliente"  ></mat-radio-button>
-  </mat-radio-group> -->
-
-
-
 
 
 </td>

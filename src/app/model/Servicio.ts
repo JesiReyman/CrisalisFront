@@ -5,12 +5,14 @@ export class Servicio {
   descripcion: string;
   precioBase: number;
   precioSoporte: number;
+  tipo: string;
 
-  constructor(nombre: string, descripcion: string, precioBase:number, precioSoporte: number) {
+  constructor(nombre: string, descripcion: string, precioBase:number, precioSoporte: number, tipo: string) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.precioBase = precioBase;
     this.precioSoporte = precioSoporte;
+    this.tipo = tipo;
   }
 
   static getCamposFormulario(item?: Servicio): CamposFormulario[]{

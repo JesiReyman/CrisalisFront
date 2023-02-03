@@ -66,7 +66,8 @@ export class ClientePersonaComponent implements OnInit {
   }
 
   onPedido(dni: number){
-    this.gestionarPedido.idCliente.next(dni);
+    //this.gestionarPedido.idCliente.next(dni);
+    this.gestionarPedido.setDniOCuit(dni);
     this.router.navigate(['/realizarPedido']);
   }
 

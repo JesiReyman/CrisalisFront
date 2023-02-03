@@ -18,4 +18,6 @@ export class ItemPedidoComponent implements OnInit {
     this.eliminarItem.next(item);
   }
 
+
+
 }

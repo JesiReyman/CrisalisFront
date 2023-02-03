@@ -1,27 +1,27 @@
-import { ImpuestoService } from './../services/impuesto.service';
-import { Impuesto } from './../model/Impuesto';
+import { AdicionalService } from '../services/adicional.service';
+import { Adicional } from '../model/Adicional';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
 
 @Component({
-  selector: 'app-impuestos',
-  templateUrl: './impuestos.component.html',
-  styleUrls: ['./impuestos.component.css']
+  selector: 'app-adicional',
+  templateUrl: './adicional.component.html',
+  styleUrls: ['./adicional.component.css']
 })
-export class ImpuestosComponent implements OnInit {
-  public listaImpuestos: Impuesto[] = [];
-  constructor(private impuestoService: ImpuestoService, private dialog: MatDialog) { }
+export class AdicionalComponent implements OnInit {
+  public listaAdicionales: Adicional[] = [];
+  constructor(private adicionalService: AdicionalService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.obtenerListaImpuestos();
+    this.obtenerListaAdicionales();
   }
 
-  obtenerListaImpuestos() {
-    this.impuestoService.obtenerListaImpuestos().subscribe({
+  obtenerListaAdicionales() {
+    this.adicionalService.obtenerListaAdicionales().subscribe({
       next: (lista) => {
-        this.listaImpuestos = lista;
+        this.listaAdicionales = lista;
       },
       error: (error: HttpErrorResponse) => console.log(error),
     });
@@ -32,22 +32,22 @@ export class ImpuestosComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    let campos = Impuesto.getCamposFormulario();
+    let campos = Adicional.getCamposFormulario();
 
     dialogConfig.data = {
-      titulo: 'Nuevo Impuesto',
+      titulo: 'Nuevo Adicional',
       camposFormulario: campos,
     };
 
     this.dialog
       .open(AddDialogComponent, dialogConfig)
       .afterClosed()
-      .subscribe((impuesto) => {
-        if (impuesto) {
-          this.impuestoService.crearImpuesto(impuesto)
+      .subscribe((adicional) => {
+        if (adicional) {
+          this.adicionalService.crearAdicional(adicional)
           .subscribe({
             next: () => {
-              this.obtenerListaImpuestos();
+              this.obtenerListaAdicionales();
             },
             error: (error: HttpErrorResponse) => console.log(error),
           });
@@ -55,21 +55,22 @@ export class ImpuestosComponent implements OnInit {
       });
   }
 
-  eliminar(impuesto: string){
-    this.impuestoService.eliminarImpuesto(impuesto).subscribe({
+  eliminar(adicional: string){
+    this.adicionalService.eliminarAdicional(adicional).subscribe({
       next: () => {
-        this.obtenerListaImpuestos();
+        this.obtenerListaAdicionales();
       },
       error: (error: HttpErrorResponse) => console.log(error),
     });
   }
 
   editar(item: any){
-    this.impuestoService
-      .editarImpuesto(item.nombreImpuesto, item.impuestoEditado)
+    console.log(item)
+    this.adicionalService
+      .editarAdicional(item.nombreAdicional, item.adicionalEditado)
       .subscribe({
         next: () => {
-          this.obtenerListaImpuestos();
+          this.obtenerListaAdicionales();
         },
         error: (error: HttpErrorResponse) => console.log(error),
       });

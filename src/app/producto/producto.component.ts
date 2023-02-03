@@ -1,8 +1,9 @@
+import { ProductoPedido } from 'src/app/model/ProductoPedido';
 import { Router } from '@angular/router';
 import { AddDialogComponent } from './../Dialogs/add-dialog/add-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductoService } from './../services/producto.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Producto } from '../model/Producto';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
@@ -13,6 +14,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 })
 export class ProductoComponent implements OnInit {
   public listaProductos: Producto[] = [];
+  @Input() productosPedidos: ProductoPedido[] = [];
   constructor(
     private productoService: ProductoService,
     private dialog: MatDialog,
@@ -21,12 +23,14 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerListaProductos();
+    console.log("en producto llego el siguiente producto pedido: " + JSON.stringify(this.productosPedidos))
   }
 
   obtenerListaProductos() {
     this.productoService.obtenerListaProducto().subscribe({
       next: (lista) => {
         this.listaProductos = lista;
+
       },
       error: (error: HttpErrorResponse) => console.log(error),
     });
@@ -80,4 +84,6 @@ export class ProductoComponent implements OnInit {
         error: (error: HttpErrorResponse) => console.log(error),
       });
   }
+
+
 }
