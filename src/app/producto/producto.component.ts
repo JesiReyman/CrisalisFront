@@ -23,7 +23,7 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerListaProductos();
-    console.log("en producto llego el siguiente producto pedido: " + JSON.stringify(this.productosPedidos))
+
   }
 
   obtenerListaProductos() {
@@ -32,17 +32,17 @@ export class ProductoComponent implements OnInit {
         this.listaProductos = lista;
 
       },
-      error: (error: HttpErrorResponse) => console.log(error),
+      error: (error: HttpErrorResponse) => console.log(error.message),
     });
   }
 
   eliminar(nombre: string) {
-    console.log(nombre);
+
     this.productoService.eliminarProducto(nombre).subscribe({
       next: () => {
         this.obtenerListaProductos();
       },
-      error: (error: HttpErrorResponse) => console.log(error),
+      error: (error: HttpErrorResponse) => console.log(error.message),
     });
   }
 
@@ -68,7 +68,7 @@ export class ProductoComponent implements OnInit {
             next: () => {
               this.obtenerListaProductos();
             },
-            error: (error: HttpErrorResponse) => console.log(error),
+            error: (error: HttpErrorResponse) => console.log(error.message),
           });
         }
       });
@@ -81,7 +81,7 @@ export class ProductoComponent implements OnInit {
         next: () => {
           this.obtenerListaProductos();
         },
-        error: (error: HttpErrorResponse) => console.log(error),
+        error: (error: HttpErrorResponse) => console.log(error.message),
       });
   }
 

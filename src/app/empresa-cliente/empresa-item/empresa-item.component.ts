@@ -104,7 +104,7 @@ export class EmpresaItemComponent implements OnInit {
               alert("Se registró exitosamente");
               this.router.navigate(['/realizarPedido']);
             },
-            error: (error: HttpErrorResponse) => console.log(error),
+            error: (error: HttpErrorResponse) => console.log(error.message),
           });
         }
       });

@@ -17,7 +17,7 @@ export class DeleteDialogComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    //console.log(this.nombre);
+
   }
 
   confirmar(){

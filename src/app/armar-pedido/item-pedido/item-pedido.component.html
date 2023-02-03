@@ -5,6 +5,11 @@
 <td>{{itemPedido.totalImpuestos}}</td>
 <td>{{itemPedido.totalAdicionales}}</td>
 <td>{{itemPedido.precioFinalUnitario}}</td>
+
+<td *ngIf="rutaActual.includes('/editarPedido') && itemPedido.tipo == 'servicio' ">{{itemPedido.activo ? 'ACTIVO':'INACTIVO'}}</td>
+<td *ngIf="rutaActual.includes('/editarPedido') && itemPedido.tipo == 'producto' ">-</td>
+
+
 <td>{{itemPedido.descuento}}</td>
 <td>{{itemPedido.precioTotal}}</td>
 <td> <button mat-stroked-button color="warn" (click)="eliminar(itemPedido)">Eliminar</button> </td>

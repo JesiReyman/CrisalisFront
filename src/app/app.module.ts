@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { DeleteDialogComponent } from './Dialogs/delete-dialog/delete-dialog.component';
 import { AddDialogComponent } from './Dialogs/add-dialog/add-dialog.component';
 import { ServicioComponent } from './servicio/servicio.component';
@@ -77,7 +78,8 @@ import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
     MatSelectModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSlideToggleModule
   ],
   providers: [
     {

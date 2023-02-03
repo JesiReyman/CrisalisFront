@@ -24,7 +24,7 @@ export class ClientePersonaComponent implements OnInit {
   constructor(private dialog: MatDialog, private gestionarPedido: AgregarItemPedidoService, public router: Router) { }
 
   ngOnInit(): void {
-    console.log("esto llewgo a cliente-persona" + this.dniPersona)
+
   }
 
   onEdit(persona: ClientePersona){
@@ -70,12 +70,6 @@ export class ClientePersonaComponent implements OnInit {
     this.gestionarPedido.setDniOCuit(dni);
     this.router.navigate(['/realizarPedido']);
   }
-
-  seleccion(fila:any){
-    console.log("se ejecuto el evento de seleccion de radio button")
-    console.log(fila.value)
-  }
-
 
 
 }

@@ -40,13 +40,13 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(usuario).subscribe({
         next: (resultado) => {
-          console.log('esta logueado');
+
           let token = resultado.token;
           this.tokenService.setToken(token);
           this.router.navigate(['/productos']);
         },
         error: (error: HttpErrorResponse) => {
-          console.log(error);
+          console.log(error.message);
         },
       });
     }
@@ -57,10 +57,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.nuevoUsuario(nuevoUsuario).subscribe({
       next: (resultado) => {
-        console.log('se creo correctamente')
+
       },
       error: (error: HttpErrorResponse) => {
-        console.log(error);
+        console.log(error.message);
       }
     })
   }

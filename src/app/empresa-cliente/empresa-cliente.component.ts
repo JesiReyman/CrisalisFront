@@ -23,7 +23,7 @@ export class EmpresaClienteComponent implements OnInit {
       next: (lista) => {
         this.listaEmpresas = lista;
       },
-      error: (error: HttpErrorResponse) => console.log(error),
+      error: (error: HttpErrorResponse) => console.log(error.message),
     });
   }
 
@@ -49,19 +49,19 @@ export class EmpresaClienteComponent implements OnInit {
             next: () => {
               this.getListaEmpresas();
             },
-            error: (error: HttpErrorResponse) => console.log(error),
+            error: (error: HttpErrorResponse) => console.log(error.message),
           });
         }
       });
   }
 
   eliminar(cuit: number){
-    //console.log(cuit);
+
     this.empresaClienteService.eliminarEmpresa(cuit).subscribe({
       next: () => {
         this.getListaEmpresas();
       },
-      error: (error: HttpErrorResponse) => console.log(error),
+      error: (error: HttpErrorResponse) => console.log(error.message),
     });
   }
 
@@ -72,7 +72,7 @@ export class EmpresaClienteComponent implements OnInit {
         next: () => {
           this.getListaEmpresas();
         },
-        error: (error: HttpErrorResponse) => console.log(error),
+        error: (error: HttpErrorResponse) => console.log(error.message),
       });
   }
 

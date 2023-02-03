@@ -26,9 +26,9 @@ export class ClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListaPersonasClientes();
-    console.log("en cliente llego el siguiente dni: " + this.dniPersona)
+
     this.personaSeleccionada(this.dniPersona)
-    console.log("esta es la persona asociada a esta empresa: " + JSON.stringify(this.personaAsociadaEmpresa));
+
   }
 
   getListaPersonasClientes() {
@@ -36,7 +36,7 @@ export class ClienteComponent implements OnInit {
       next: (lista) => {
         this.listaPersonasClientes = lista;
       },
-      error: (error: HttpErrorResponse) => console.log(error),
+      error: (error: HttpErrorResponse) => console.log(error.message),
     });
   }
 
@@ -61,19 +61,19 @@ export class ClienteComponent implements OnInit {
             next: () => {
               this.getListaPersonasClientes();
             },
-            error: (error: HttpErrorResponse) => console.log(error),
+            error: (error: HttpErrorResponse) => console.log(error.message),
           });
         }
       });
   }
 
   eliminar(dniCliente: number) {
-    console.log(dniCliente);
+
     this.clientePersonaService.eliminarCliente(dniCliente).subscribe({
       next: () => {
         this.getListaPersonasClientes();
       },
-      error: (error: HttpErrorResponse) => console.log(error),
+      error: (error: HttpErrorResponse) => console.log(error.message),
     });
   }
 
@@ -84,7 +84,7 @@ export class ClienteComponent implements OnInit {
         next: () => {
           this.getListaPersonasClientes();
         },
-        error: (error: HttpErrorResponse) => console.log(error),
+        error: (error: HttpErrorResponse) => console.log(error.message),
       });
   }
 
@@ -94,7 +94,7 @@ export class ClienteComponent implements OnInit {
 
   personaSeleccionada(dniPersona: number) {
     if (dniPersona) {
-      console.log()
+
       if (this.listaPersonasClientes.some((p) => p.dniOCuit === dniPersona)) {
         this.personaAsociadaEmpresa = this.listaPersonasClientes.find(
           (p) => p.dniOCuit === dniPersona

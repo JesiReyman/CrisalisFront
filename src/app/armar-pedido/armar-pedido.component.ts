@@ -51,14 +51,11 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
   }
 
   agregarALista() {
-    //let rutaActual = this.router.url;
 
-
-      console.log("entro al if de agregarLista")
       this.agregarItemPedido.agregarItem$
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((data) => {
-        console.log("voy a estimar item")
+
         this.estimarItem(data);
       });
 
@@ -72,13 +69,9 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
 
     this.itemPedidoService.estimarItemPedido(item, this.dniOCuitCLiente).subscribe({
       next: (itemEstimado) => {
-        console.log(itemEstimado)
-        let precioTotalPorCantidad = itemEstimado.cantidad * itemEstimado.precioFinalUnitario;
-        /*let impuestosTotalCantidad = itemEstimado.cantidad * itemEstimado.totalImpuestos;
-        let adicionalesTotalCantidad = itemEstimado.cantidad * itemEstimado.totalAdicionales;
 
-        itemEstimado['totalImpuestos'] = impuestosTotalCantidad;
-        itemEstimado['totalAdicionales'] = adicionalesTotalCantidad;*/
+        let precioTotalPorCantidad = itemEstimado.cantidad * itemEstimado.precioFinalUnitario;
+
         itemEstimado['precioTotal'] = precioTotalPorCantidad;
 
         if (this.listaItemsPedidos.length == 0) {
@@ -130,24 +123,6 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
 
   confirmarPedido() {
 
-    /*this.agregarItemPedido.idCliente$
-      .pipe(take(1))
-      .subscribe((idCliente: number) => {
-
-        this.idCliente = idCliente;
-
-        this.pedidoService.realizarPedido(this.idCliente, this.listaItemsPedidos).subscribe({
-          next: (pedido) => {
-            console.log(this.listaItemsPedidos)
-            this.router.navigate(['/pedidos'])
-          },
-          error: (error: HttpErrorResponse) => {console.log(error.message)},
-        }
-
-        )
-
-      });*/
-
       this.pedidoService.realizarPedido(this.dniOCuitCLiente, this.listaItemsPedidos).subscribe({
         next: (pedido) => {
           this.router.navigate(['/pedidos'])
@@ -170,19 +145,17 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
     if (rutaActual.includes('/editarPedido')) {
       this.pedidoAEditar = this.pedidoService.getPedido();
       this.dniOCuitCLiente = this.pedidoAEditar.dniOCuitCliente;
-      //console.log(this.pedidoAEditar);
-      //console.log(this.dniOCuitCLiente)
+
       this.itemPedidoService.listaItemsPedidos(this.pedidoAEditar.id).subscribe({
         next: (pedido) => {
-          //console.log(pedido)
+
           this.listaItemsPedidos = pedido;
           this.listaItemsPedidos.forEach(element => {
             this.estimarItem(element)
           });
 
-          this.listaProductosPedidos = this.listaItemsPedidos.filter(element => element.tipo == 'producto')
-          /*console.log("lista de produc pedidos a enviar: " + JSON.stringify(this.listaPoductosPedidos))
-          this.agregarItemPedido.setListaProductosPedidos(this.listaPoductosPedidos);*/
+
+
         },
         error: (error: HttpErrorResponse) => {console.log(error.message)}
       })

@@ -23,7 +23,7 @@ export class AdicionalComponent implements OnInit {
       next: (lista) => {
         this.listaAdicionales = lista;
       },
-      error: (error: HttpErrorResponse) => console.log(error),
+      error: (error: HttpErrorResponse) => console.log(error.message),
     });
   }
 
@@ -49,7 +49,7 @@ export class AdicionalComponent implements OnInit {
             next: () => {
               this.obtenerListaAdicionales();
             },
-            error: (error: HttpErrorResponse) => console.log(error),
+            error: (error: HttpErrorResponse) => console.log(error.message),
           });
         }
       });
@@ -60,19 +60,19 @@ export class AdicionalComponent implements OnInit {
       next: () => {
         this.obtenerListaAdicionales();
       },
-      error: (error: HttpErrorResponse) => console.log(error),
+      error: (error: HttpErrorResponse) => console.log(error.message),
     });
   }
 
   editar(item: any){
-    console.log(item)
+
     this.adicionalService
       .editarAdicional(item.nombreAdicional, item.adicionalEditado)
       .subscribe({
         next: () => {
           this.obtenerListaAdicionales();
         },
-        error: (error: HttpErrorResponse) => console.log(error),
+        error: (error: HttpErrorResponse) => console.log(error.message),
       });
   }
 

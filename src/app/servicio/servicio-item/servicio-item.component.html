@@ -7,7 +7,7 @@
   <button type="button" class="btn btn-danger" (click)="onDelete(servicioItem.nombre)">Eliminar</button>
 </td>
 
-<td class="d-flex " *ngIf="router.url === '/realizarPedido'" >
+<td class="d-flex " *ngIf="router.url === '/realizarPedido' || router.url === '/editarPedido' " >
   <form class="d-flex justify-content-around" style="width: 100%;" [formGroup]="campoCantidad" (ngSubmit)="submit(servicioItem)">
     <mat-form-field>
       <input

@@ -96,7 +96,7 @@ export class ProductoItemComponent implements OnInit {
       this.itemPedidoService.listaProductosPedidos(this.pedidoAEditar.id).subscribe({
         next: (listaProductos) => {
           this.listaProductosPedidos = listaProductos;
-          console.log("en item producto llego: " + JSON.stringify(this.listaProductosPedidos))
+
           this.rellenarCampos()
         },
         error: (error: HttpErrorResponse) => { console.log(error.message);}

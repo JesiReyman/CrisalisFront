@@ -69,13 +69,12 @@ export class PedidosComponent implements OnInit {
         next: () => {
           this.obtenerListaPedidos();
         },
-        error: (error: HttpErrorResponse) => console.log(error),
+        error: (error: HttpErrorResponse) => console.log(error.message),
       });
   }
 
   editarEstado(event: MouseEvent, pedido: Pedido) {
     event.stopPropagation()
-    console.log(pedido)
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -102,20 +101,13 @@ export class PedidosComponent implements OnInit {
     this.itemsPedidosService.listaItemsPedidos(idPedido).subscribe({
       next: (lista) => {
         this.itemsPedidos = lista;
-        console.log(this.itemsPedidos)},
-      error: (error: HttpErrorResponse) => console.log(error)
+        },
+      error: (error: HttpErrorResponse) => console.log(error.message)
     })
   }
 
   editarPedido(event: MouseEvent, pedido: Pedido) {
     event.stopPropagation()
-    /*this.itemsPedidosService.listaItemsPedidos(idPedido).subscribe({
-      next: (lista) => {
-        this.itemsPedidos = lista;
-        console.log(this.itemsPedidos)},
-      error: (error: HttpErrorResponse) => console.log(error)
-    })*/
-    console.log(pedido)
 
     this.pedidoService.setPedido(pedido)
     this.router.navigate(['/editarPedido'])

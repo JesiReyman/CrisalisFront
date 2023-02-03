@@ -17,7 +17,7 @@ export class AgregarItemPedidoService {
 
   recibirItemPedido(){
     this.agregarItem$.subscribe(pedido => {
-      //console.log("esto llego al servicio: " + JSON.stringify(pedido) );
+
       this.item.next(pedido);
     })
   }

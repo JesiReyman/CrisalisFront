@@ -32,7 +32,7 @@ export class AdicionalItemComponent implements OnInit {
 
     this.dialog.open(AddDialogComponent, dialogConfig)
     .afterClosed().subscribe(adicionalEditado => {
-      console.log(adicionalEditado)
+
       if(adicionalEditado){
         this.adicionalEditado.emit({nombreAdicional: adicional.nombre, adicionalEditado: adicionalEditado});
       }

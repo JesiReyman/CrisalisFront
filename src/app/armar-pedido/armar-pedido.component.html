@@ -22,6 +22,7 @@
         <th>Total impuestos</th>
         <th>Total adicionales</th>
         <th>Precio total unitario</th>
+        <th *ngIf="rutaActual.includes('/editarPedido')"> Estado </th>
         <th>Descuento por serv. activo</th>
         <th>Total</th>
         <th></th>
@@ -42,9 +43,14 @@
         <td>{{pedido.totalImpuestos}}</td>
         <td>{{pedido.totalAdicionales}}</td>
         <td></td>
+        <td *ngIf="rutaActual.includes('/editarPedido')">  </td>
         <td>{{pedido.descuento}}</td>
         <td>{{pedido.total}}</td>
-        <td><button mat-raised-button color="primary" (click)="confirmarPedido()">Confirmar</button></td>
+        <td>
+          <button mat-raised-button color="warn" *ngIf="rutaActual.includes('editarPedido')">Cancelar</button>
+          <button mat-raised-button color="primary" (click)="confirmarPedido()">Confirmar</button>
+        </td>
+
       </tr>
     </tfoot>
 
