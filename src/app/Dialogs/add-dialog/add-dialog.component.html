@@ -1,5 +1,5 @@
 <h3 mat-dialog-title>{{titulo}}</h3>
-<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()" autocomplete="off">
 <div mat-dialog-content class="d-flex flex-column" *ngFor="let campo of camposFormulario">
 
   <mat-form-field appearance="fill" *ngIf="!campo.type.includes('number') && !campo.key.includes('aplica') && !campo.key.includes('estado') && !campo.key.includes('tipo')">

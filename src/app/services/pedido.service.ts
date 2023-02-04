@@ -27,6 +27,10 @@ export class PedidoService {
     return this.http.put<Pedido>(this.pedidoURL + `/${idPedido}/cambiarEstado`, pedido);
   }
 
+  public editarPedido(idPedido: number, listaItemsPedidos: ProductoPedido[]): Observable<Pedido> {
+    return this.http.put<Pedido>(this.pedidoURL + `/editar/${idPedido}`, listaItemsPedidos);
+  }
+
   setPedido(pedido: Pedido){
     this.pedido = pedido;
   }

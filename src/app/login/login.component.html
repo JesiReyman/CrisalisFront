@@ -1,6 +1,6 @@
 <div class="container d-flex flex-column align-items-center">
   <div class="container form-container mt-5">
-    <form class="d-flex flex-column" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form class="d-flex flex-column" [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
       <legend>Iniciar Sesión</legend>
 
       <mat-form-field appearance="outline">

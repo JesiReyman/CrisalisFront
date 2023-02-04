@@ -6,7 +6,10 @@
 <td>{{itemPedido.totalAdicionales}}</td>
 <td>{{itemPedido.precioFinalUnitario}}</td>
 
-<td *ngIf="rutaActual.includes('/editarPedido') && itemPedido.tipo == 'servicio' ">{{itemPedido.activo ? 'ACTIVO':'INACTIVO'}}</td>
+<td *ngIf="rutaActual.includes('/editarPedido') && itemPedido.tipo == 'servicio' ">
+  <mat-slide-toggle  [(ngModel)]="itemPedido.activo"> </mat-slide-toggle>
+
+</td>
 <td *ngIf="rutaActual.includes('/editarPedido') && itemPedido.tipo == 'producto' ">-</td>
 
 

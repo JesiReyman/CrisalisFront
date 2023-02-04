@@ -122,15 +122,23 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
   }
 
   confirmarPedido() {
+      if(this.rutaActual.includes('realizarPedido')){
+        this.pedidoService.realizarPedido(this.dniOCuitCLiente, this.listaItemsPedidos).subscribe({
+          next: (pedido) => {
+            this.router.navigate(['/pedidos'])
+          },
+          error: (error: HttpErrorResponse) => {console.log(error.message)},
+        }
 
-      this.pedidoService.realizarPedido(this.dniOCuitCLiente, this.listaItemsPedidos).subscribe({
-        next: (pedido) => {
-          this.router.navigate(['/pedidos'])
-        },
-        error: (error: HttpErrorResponse) => {console.log(error.message)},
+        )
+      } else if(this.rutaActual.includes('editarPedido') && this.pedidoAEditar){
+          this.pedidoService.editarPedido(this.pedidoAEditar.id, this.listaItemsPedidos).subscribe({
+            next: (pedido) => {
+              this.router.navigate(['/pedidos'])
+            },
+            error: (error: HttpErrorResponse) => {console.log(error.message);}
+          })
       }
-
-      )
 
   }
 
@@ -163,4 +171,10 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
     }
 
   }
+
+  cancelarEdicion(){
+    this.router.navigate(['/pedidos']);
+  }
+
+
 }

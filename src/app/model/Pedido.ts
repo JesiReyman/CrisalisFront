@@ -88,6 +88,10 @@ export class Pedido {
         nombre: 'Total adicionales'
       },
       {
+        propiedad: 'descuento',
+        nombre: 'Total descuento'
+      },
+      {
         propiedad: 'total',
         nombre: 'Total'
       }

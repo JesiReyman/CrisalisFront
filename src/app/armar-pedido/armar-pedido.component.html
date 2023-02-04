@@ -36,25 +36,32 @@
 
     <tfoot>
       <tr>
-        <td>Total Pedido</td>
-        <td>{{pedido.precioBase}}</td>
-        <td></td>
-        <td></td>
-        <td>{{pedido.totalImpuestos}}</td>
-        <td>{{pedido.totalAdicionales}}</td>
-        <td></td>
-        <td *ngIf="rutaActual.includes('/editarPedido')">  </td>
-        <td>{{pedido.descuento}}</td>
-        <td>{{pedido.total}}</td>
-        <td>
-          <button mat-raised-button color="warn" *ngIf="rutaActual.includes('editarPedido')">Cancelar</button>
-          <button mat-raised-button color="primary" (click)="confirmarPedido()">Confirmar</button>
-        </td>
+        <th>Total Pedido</th>
+        <th>{{pedido.precioBase}}</th>
+        <th></th>
+        <th></th>
+        <th>{{pedido.totalImpuestos}}</th>
+        <th>{{pedido.totalAdicionales}}</th>
+        <th></th>
+        <th *ngIf="rutaActual.includes('/editarPedido')">  </th>
+        <th>{{pedido.descuento}}</th>
+        <th>{{pedido.total}}</th>
+        <th>
+
+
+        </th>
 
       </tr>
     </tfoot>
 
   </table>
+  <div class="d-flex justify-content-end">
+    <div class="d-flex buttons-container justify-content-between">
+      <button mat-raised-button color="warn" *ngIf="rutaActual.includes('editarPedido')" (click)="cancelarEdicion()" >Cancelar</button>
+      <button class="ms-auto" mat-raised-button color="primary" (click)="confirmarPedido()">Confirmar</button>
+    </div>
+  </div>
+
 
 </div>
 
