@@ -1,3 +1,7 @@
+import { EmpresaCliente } from './../model/EmpresaCliente';
+import { ClientePersona } from './../model/ClientePersona';
+import { EmpresaClienteService } from './../services/empresa-cliente.service';
+import { ClientePersonaService } from './../services/cliente-persona.service';
 import { Router } from '@angular/router';
 import { ProductoPedido } from 'src/app/model/ProductoPedido';
 import { EstadoPedido } from './../model/EstadoPedido.enum';
@@ -10,6 +14,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
 import { ItemPedidoService } from '../services/ItemPedido.service';
+import { Cliente } from '../model/Cliente';
 
 @Component({
   selector: 'app-pedidos',
@@ -28,7 +33,9 @@ export class PedidosComponent implements OnInit {
   itemsPedidos: ProductoPedido[] = [];
   columnas = Pedido.getColumnasTabla();
   columnasItems = ProductoPedido.getColumnasTabla();
-  //columnsToDisplay = ['id', 'fechaCreacion', 'estado', 'precioBase', 'totalImpuestos', 'total', 'adasd'];
+  cliente : Cliente = <Cliente> {};
+  busqueda: string = '';
+
 
 
   nombresColumnas = this.columnas.map((col) => col.nombre);
@@ -43,7 +50,7 @@ export class PedidosComponent implements OnInit {
 
   campoEstado: FormGroup = {} as FormGroup;
 
-  constructor(private pedidoService: PedidoService, private dialog: MatDialog, private itemsPedidosService: ItemPedidoService, private router: Router) {
+  constructor(private pedidoService: PedidoService, private dialog: MatDialog, private itemsPedidosService: ItemPedidoService, private router: Router, private personaclienteService: ClientePersonaService, private empresaClienteService: EmpresaClienteService) {
 
   }
 
@@ -58,7 +65,12 @@ export class PedidosComponent implements OnInit {
   obtenerListaPedidos() {
     this.pedidoService
       .obtenerListaPedidos()
-      .subscribe((data) => (this.listaPedidos = data));
+      .subscribe({
+        next: (lista) => {
+          this.listaPedidos = lista;
+
+        }
+      });
   }
 
   guardarEstado(pedidoId: number, estado: Pedido) {
@@ -97,6 +109,11 @@ export class PedidosComponent implements OnInit {
     });
   }
 
+  obtenerDetalle(pedido: Pedido) {
+    this.obtenerItemsPedidos(pedido.id);
+    this.obtenerCliente(pedido.dniOCuitCliente, pedido.tipoCliente)
+  }
+
   obtenerItemsPedidos(idPedido: number){
     this.itemsPedidosService.listaItemsPedidos(idPedido).subscribe({
       next: (lista) => {
@@ -106,12 +123,53 @@ export class PedidosComponent implements OnInit {
     })
   }
 
+  obtenerCliente(dniOCuitCliente: number, tipoCliente: string){
+    if(tipoCliente == 'persona'){
+      this.personaclienteService.obtenerPersonaCliente(dniOCuitCliente).subscribe({
+        next: (persona: ClientePersona) => {
+          this.cliente = new Cliente( persona.nombre, persona.dniOCuit, persona.apellido)
+        }
+      })
+    } else {
+      this.empresaClienteService.encontrarEmpresa(dniOCuitCliente).subscribe({
+        next: (empresa: EmpresaCliente) => {
+          this.cliente = new Cliente(empresa.razonSocial, empresa.dniOCuit)
+        }
+      })
+    }
+  }
+
   editarPedido(event: MouseEvent, pedido: Pedido) {
     event.stopPropagation()
 
     this.pedidoService.setPedido(pedido)
     this.router.navigate(['/editarPedido'])
+  }
+
+  buscar(dniOCuit: string = ''){
+    console.log(dniOCuit)
+    if (typeof dniOCuit === "string" && dniOCuit.trim().length == 0){
+      console.log("esta vacio")
+      this.obtenerListaPedidos();
+      return
+    }
+    if (dniOCuit != null) {
+      this.pedidoService.pedidosDeCliente(Number(dniOCuit)).subscribe({
+        next: (lista) => {
+          console.log('entre al subscribe');
+          this.pedidoService.pedidosDeCliente(Number(dniOCuit)).subscribe({
+            next: (lista) => {
+              console.log(lista);
+              this.listaPedidos = lista;
+            },
+          });
+        },
+      });
+    }
+
 
 
   }
+
+
 }

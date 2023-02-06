@@ -8,6 +8,8 @@ import { DeleteDialogComponent } from 'src/app/Dialogs/delete-dialog/delete-dial
 import { AddDialogComponent } from 'src/app/Dialogs/add-dialog/add-dialog.component';
 import { ClientePersona } from 'src/app/model/ClientePersona';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AgregarItemPedidoService } from 'src/app/services/agregar-item-pedido.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'tr[app-empresa-item]',
@@ -26,7 +28,8 @@ export class EmpresaItemComponent implements OnInit {
     private dialog: MatDialog,
     private empresaClienteService: EmpresaClienteService,
     private router: Router,
-    private clientePersonaService: ClientePersonaService
+    private clientePersonaService: ClientePersonaService,
+    private gestionarPedido: AgregarItemPedidoService
   ) {}
 
   ngOnInit(): void {}
@@ -74,15 +77,26 @@ export class EmpresaItemComponent implements OnInit {
       });
   }
 
-  realizarPedido(empresaCliente: EmpresaCliente) {
+  realizarPedido(empresa: EmpresaCliente) {
 
-    if (!empresaCliente.dniPersona) {
-      alert('Esta empresa no tiene ninguna persona registrada, por favor registre una');
-      this.registrarPersona();
+    if (!empresa.dniPersona) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Esta empresa no tiene ninguna persona registrada, por favor registre una.',
+
+      }).then(() => {
+        this.registrarPersona(empresa.dniOCuit);
+      });
+
+
+    } else {
+      this.gestionarPedido.setDniOCuit(empresa.dniOCuit);
+      this.router.navigate(['/realizarPedido']);
     }
   }
 
-  registrarPersona() {
+  //TODO:ARREGLAR EL TEMA DE ASOCIACION DE LA EMPRESA CON UNA PERSONA
+  registrarPersona(cuit: number) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -97,16 +111,52 @@ export class EmpresaItemComponent implements OnInit {
     this.dialog
       .open(AddDialogComponent, dialogConfig)
       .afterClosed()
-      .subscribe((cliente) => {
-        if (cliente) {
-          this.clientePersonaService.agregarCliente(cliente).subscribe({
+      .subscribe((clientePersona) => {
+        if (clientePersona) {
+          this.empresaClienteService.asociarPersonaAEmpresa(cuit, clientePersona).subscribe({
             next: () => {
-              alert("Se registró exitosamente");
-              this.router.navigate(['/realizarPedido']);
+              Swal.fire({
+                icon: 'success',
+                title: 'Registro exitoso!',
+
+              }).then(() => {
+                this.gestionarPedido.setDniOCuit(cuit);
+                this.router.navigate(['/realizarPedido']);
+              })
+
+
             },
-            error: (error: HttpErrorResponse) => console.log(error.message),
+            error: (error: HttpErrorResponse) => {
+              console.log(error.message)
+              Swal.fire({
+                icon: 'error',
+                title: 'Ocurrió un error',
+
+              })
+            },
           });
         }
       });
+  }
+
+  editarPersona(dni: number){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    let campos = ClientePersona.getCamposFormulario();
+
+    dialogConfig.data = {
+      titulo: 'Persona Responsable',
+      camposFormulario: campos,
+    };
+
+  }
+
+  onChange(e: any){
+
+    let cliente = e.value as EmpresaCliente;
+    this.gestionarPedido.setDniOCuit(cliente.dniOCuit);
+    this.gestionarPedido.empresaCliente.next(cliente);
   }
 }

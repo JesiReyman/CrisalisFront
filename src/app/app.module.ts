@@ -38,6 +38,7 @@ import { AdicionalItemComponent } from './impuestos/adicional-item/adicional-ite
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { PedidoParticularComponent } from './pedidos/pedido-particular/pedido-particular.component';
 import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
+import { RegistroComponent } from './login/registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
     AdicionalItemComponent,
     PedidosComponent,
     PedidoParticularComponent,
-    EditarPedidoComponent
+    EditarPedidoComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
     MatCheckboxModule,
     MatRadioModule,
     MatExpansionModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+
   ],
   providers: [
     {

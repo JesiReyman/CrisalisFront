@@ -7,6 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
+import { AgregarItemPedidoService } from '../services/agregar-item-pedido.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cliente',
@@ -17,17 +19,23 @@ export class ClienteComponent implements OnInit {
   public listaPersonasClientes: ClientePersona[] = [];
   @Input() dniPersona: number = 0;
   personaAsociadaEmpresa: any;
+  subscription?: Subscription;
+  personaSeleccionada: ClientePersona = <ClientePersona>{};
 
   constructor(
     private clientePersonaService: ClientePersonaService,
     private dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    private gestionarPedido: AgregarItemPedidoService
   ) {}
 
   ngOnInit(): void {
     this.getListaPersonasClientes();
 
-    this.personaSeleccionada(this.dniPersona)
+    //this.personaSeleccionada(this.dniPersona)
+    this.subscription = this.gestionarPedido.cliente.subscribe((cliente) => {
+      this.personaSeleccionada = cliente;
+    })
 
   }
 
@@ -92,7 +100,7 @@ export class ClienteComponent implements OnInit {
     const dni = dniCliente;
   }
 
-  personaSeleccionada(dniPersona: number) {
+  /*personaSeleccionada(dniPersona: number) {
     if (dniPersona) {
 
       if (this.listaPersonasClientes.some((p) => p.dniOCuit === dniPersona)) {
@@ -101,5 +109,9 @@ export class ClienteComponent implements OnInit {
         );
       }
     }
+  }*/
+
+  onPedido(){
+    this.router.navigate(['/realizarPedido']);
   }
 }

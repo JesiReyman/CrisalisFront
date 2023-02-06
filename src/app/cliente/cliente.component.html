@@ -1,9 +1,15 @@
 <div class="d-flex flex-column container-fluid mx-0 seccion">
-  <div class="d-flex container titulo-seccion align-items-center">
-     <h1>Clientes</h1>
+  <div class="d-flex my-4 container titulo-seccion align-items-center">
+    <div class="d-flex justify-content-between py-3 titulo-boton-container ">
+      <h1 class="titulo-cliente">Clientes</h1>
      <div>
-      <button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>
+      <!--<button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>-->
+      <button class="boton-agregar" mat-mini-fab color="success" (click)="agregar()" >
+        <mat-icon>add</mat-icon>
+      </button>
      </div>
+    </div>
+
      <!--<mat-form-field appearance="fill">
       <mat-label>Buscar cliente por DNI</mat-label>
       <input matInput [(ngModel)]="dniCliente" />
@@ -30,6 +36,10 @@
 
       </tbody>
     </table>
+    <div class="d-flex">
+      <button class="ms-auto"  type="button" mat-raised-button color="accent" [disabled]="!personaSeleccionada.dniOCuit"  (click)="onPedido()">Realizar Pedido</button>
+    </div>
+
 
   </div>
 </div>

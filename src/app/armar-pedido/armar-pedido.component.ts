@@ -118,7 +118,7 @@ export class ArmarPedidoComponent implements OnInit, OnDestroy {
     }
     total -= totalDescuento;
 
-    this.pedido = new Pedido(0, 0, EstadoPedido.PENDIENTE , new Date , precioBase, totalImpuestos, totalAdicionales, total, totalDescuento);
+    this.pedido = new Pedido(0, 0, EstadoPedido.PENDIENTE , new Date , precioBase, totalImpuestos, totalAdicionales, total, totalDescuento, '');
   }
 
   confirmarPedido() {

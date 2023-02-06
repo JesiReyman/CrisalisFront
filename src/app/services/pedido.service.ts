@@ -31,6 +31,10 @@ export class PedidoService {
     return this.http.put<Pedido>(this.pedidoURL + `/editar/${idPedido}`, listaItemsPedidos);
   }
 
+  public pedidosDeCliente(dniOCuit: number): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(this.pedidoURL + `/${dniOCuit}/lista`);
+  }
+
   setPedido(pedido: Pedido){
     this.pedido = pedido;
   }

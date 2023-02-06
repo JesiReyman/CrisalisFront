@@ -1,13 +1,22 @@
-<td></td>
+<td>
+  <mat-radio-button class="example-radio-button"  [value]="personaCliente"  (change)="onChange($event)">
+  </mat-radio-button>
+</td>
 <td>{{personaCliente.nombre}}</td>
 <td>{{personaCliente.apellido}}</td>
 <td>{{personaCliente.dniOCuit}}</td>
 
 
 <td class="d-flex justify-content-around">
-  <button type="button" class="btn btn-primary" (click)="onEdit(personaCliente)">Editar</button>
-  <button type="button" class="btn btn-danger" (click)="onDelete(personaCliente)" *ngIf="router.url === '/cliente-persona'">Eliminar</button>
-  <button type="button" mat-raised-button color="accent" (click)="onPedido(personaCliente.dniOCuit)" *ngIf="router.url === '/cliente-persona'">Realizar Pedido</button>
+  <!--<button type="button" class="btn btn-primary" (click)="onEdit(personaCliente)">Editar</button>-->
+  <button mat-mini-fab color="primary" (click)="onEdit(personaCliente)" >
+    <mat-icon>edit</mat-icon>
+  </button>
+  <!--<button type="button" class="btn btn-danger" (click)="onDelete(personaCliente)" *ngIf="router.url === '/cliente-persona'">Eliminar</button>-->
+  <button mat-mini-fab color="warn" (click)="onDelete(personaCliente)" >
+    <mat-icon>delete</mat-icon>
+  </button>
+  <!--<button type="button" mat-raised-button color="accent" (click)="onPedido(personaCliente.dniOCuit)">Realizar Pedido</button>-->
 
 
 </td>
