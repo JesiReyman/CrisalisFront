@@ -4,7 +4,7 @@
 }
 
 .titulo-boton-container{
-  width: 150px;
+  width: 170px;
 }
 
 .titulo-cliente{
@@ -16,3 +16,6 @@
   background-color: #00775e;
 }
 
+.tabla-empresa{
+  text-align: center;
+}

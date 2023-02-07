@@ -1,0 +1,22 @@
+.titulo-seccion{
+  width: 100%;
+
+}
+
+.tabla-adicionales{
+  width: 100%;
+  text-align: center;
+}
+
+.titulo-boton-container{
+  width: 200px;
+}
+
+.titulo-adicionales{
+  margin: 0;
+}
+
+.mat-success{
+  color: white;
+  background-color: #00775e;
+}

@@ -1,3 +1,15 @@
+.titulo-pedidos{
+  margin: 0;
+}
+
+.header-titulo{
+  width: 100%;
+}
+
+.container-header{
+  width: 50%;
+}
+
 table {
   width: 100%;
 }

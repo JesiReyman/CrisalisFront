@@ -22,6 +22,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DeleteDialogComponent } from './Dialogs/delete-dialog/delete-dialog.component';
 import { AddDialogComponent } from './Dialogs/add-dialog/add-dialog.component';
 import { ServicioComponent } from './servicio/servicio.component';
@@ -82,7 +84,8 @@ import { RegistroComponent } from './login/registro/registro.component';
     MatRadioModule,
     MatExpansionModule,
     MatSlideToggleModule,
-
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {

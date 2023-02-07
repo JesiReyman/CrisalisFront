@@ -15,6 +15,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
 import { ItemPedidoService } from '../services/ItemPedido.service';
 import { Cliente } from '../model/Cliente';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-pedidos',
@@ -35,7 +36,7 @@ export class PedidosComponent implements OnInit {
   columnasItems = ProductoPedido.getColumnasTabla();
   cliente : Cliente = <Cliente> {};
   busqueda: string = '';
-
+  totalPedidos: number = 0;
 
 
   nombresColumnas = this.columnas.map((col) => col.nombre);
@@ -56,22 +57,30 @@ export class PedidosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.obtenerListaPedidos();
+    this.obtenerListaPedidos({ page: "0", size: "10" });
     this.campoEstado = new FormGroup({
       estado: new FormControl(this.expandedElement?.estado)
     });
   }
 
-  obtenerListaPedidos() {
+  obtenerListaPedidos(request: any) {
     this.pedidoService
-      .obtenerListaPedidos()
+      .obtenerListaPedidos(request)
       .subscribe({
         next: (lista) => {
-          this.listaPedidos = lista;
+          this.listaPedidos = lista['content'];
+          this.totalPedidos = lista['totalElements'];
 
         }
       });
   }
+
+  nextPage(event: PageEvent) {
+    let request : any = {};
+    request['page'] = event.pageIndex.toString();
+    request['size'] = event.pageSize.toString();
+    this.obtenerListaPedidos(request);
+}
 
   guardarEstado(pedidoId: number, estado: Pedido) {
 
@@ -79,7 +88,7 @@ export class PedidosComponent implements OnInit {
       .cambiarEstado(pedidoId, estado)
       .subscribe({
         next: () => {
-          this.obtenerListaPedidos();
+          this.obtenerListaPedidos({ page: "0", size: "10" });
         },
         error: (error: HttpErrorResponse) => console.log(error.message),
       });
@@ -147,28 +156,30 @@ export class PedidosComponent implements OnInit {
   }
 
   buscar(dniOCuit: string = ''){
-    console.log(dniOCuit)
+
     if (typeof dniOCuit === "string" && dniOCuit.trim().length == 0){
-      console.log("esta vacio")
-      this.obtenerListaPedidos();
+
+      this.obtenerListaPedidos({ page: "0", size: "10" });
       return
     }
     if (dniOCuit != null) {
-      this.pedidoService.pedidosDeCliente(Number(dniOCuit)).subscribe({
+
+      this.pedidoService.pedidosDeCliente(Number(dniOCuit), 0, 10 ).subscribe({
         next: (lista) => {
-          console.log('entre al subscribe');
-          this.pedidoService.pedidosDeCliente(Number(dniOCuit)).subscribe({
-            next: (lista) => {
-              console.log(lista);
-              this.listaPedidos = lista;
-            },
-          });
+          this.listaPedidos = lista['content'];
+          this.totalPedidos = lista['totalElements'];
         },
       });
     }
 
+  }
 
-
+  getColor(estadoPedido: string) {
+    switch(estadoPedido) {
+      case 'PENDIENTE': return '#3f51b5';
+      case 'CONFIRMADO': return 'green';
+      default: return 'red';
+    }
   }
 
 

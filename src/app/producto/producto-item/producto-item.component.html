@@ -3,8 +3,8 @@
 <td>{{productoItem.stock}}</td>
 <td>${{productoItem.precioBase}}</td>
 <td class="d-flex justify-content-around" *ngIf="router.url === '/productos'">
-  <button type="button" class="btn btn-primary" (click)="onEdit(productoItem)">Editar</button>
-  <button type="button" class="btn btn-danger" (click)="onDelete(productoItem.nombre)">Eliminar</button>
+  <button mat-mini-fab color="primary" (click)="onEdit(productoItem)"><mat-icon>edit</mat-icon></button>
+  <button mat-mini-fab color="warn" (click)="onDelete(productoItem.nombre)"><mat-icon>delete</mat-icon></button>
 </td>
 <td class="d-flex " *ngIf="router.url === '/realizarPedido' || router.url === '/editarPedido' " >
   <form class="d-flex justify-content-around" style="width: 100%;" [formGroup]="campoCantidad" (ngSubmit)="submit(productoItem)">

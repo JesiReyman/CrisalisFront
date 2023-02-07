@@ -3,8 +3,8 @@
 <td>{{servicioItem.precioBase}}</td>
 <td>${{servicioItem.precioSoporte}}</td>
 <td class="d-flex justify-content-around" *ngIf="router.url === '/servicios'">
-  <button type="button" class="btn btn-primary" (click)="onEdit(servicioItem)">Editar</button>
-  <button type="button" class="btn btn-danger" (click)="onDelete(servicioItem.nombre)">Eliminar</button>
+  <button mat-mini-fab color="primary" (click)="onEdit(servicioItem)"><mat-icon>edit</mat-icon></button>
+  <button mat-mini-fab color="warn" (click)="onDelete(servicioItem.nombre)"><mat-icon>delete</mat-icon></button>
 </td>
 
 <td class="d-flex " *ngIf="router.url === '/realizarPedido' || router.url === '/editarPedido' " >
