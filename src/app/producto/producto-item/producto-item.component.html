@@ -12,7 +12,10 @@
       <input
         type="number"
         class="form-control"
+        min="1"
+        max="{{productoItem.stock}}"
         matInput
+        required
         name="value"
         placeholder="Cantidad"
         formControlName="cantidad">
@@ -22,13 +25,14 @@
       <input
         type="number"
         class="form-control"
+        min="0"
         matInput
         name="value"
         placeholder="Años de garantía"
         formControlName="aniosGarantia">
 
     </mat-form-field>
-    <button  mat-stroked-button color="warn" type="submit">Agregar</button>
+    <button  mat-mini-fab color="success" type="submit" [disabled]="campoCantidad.invalid" ><mat-icon>add</mat-icon></button>
   </form>
 </td>
 

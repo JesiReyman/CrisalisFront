@@ -77,8 +77,8 @@ export class EmpresaItemComponent implements OnInit {
       });
   }
 
-  realizarPedido(empresa: EmpresaCliente) {
-
+  /*realizarPedido(empresa: EmpresaCliente) {
+    console.log("estoy en realizar pedido")
     if (!empresa.dniPersona) {
       Swal.fire({
         icon: 'warning',
@@ -90,13 +90,20 @@ export class EmpresaItemComponent implements OnInit {
 
 
     } else {
+      console.log("ya tiene persona asociada")
+      this.clientePersonaService.obtenerPersonaCliente(empresa.dniPersona).subscribe({
+        next: (personaCliente) => {
+          this.editarPersona(personaCliente)
+        }
+      })
       this.gestionarPedido.setDniOCuit(empresa.dniOCuit);
       this.router.navigate(['/realizarPedido']);
     }
-  }
+  }*/
+
 
   //TODO:ARREGLAR EL TEMA DE ASOCIACION DE LA EMPRESA CON UNA PERSONA
-  registrarPersona(cuit: number) {
+  /*registrarPersona(cuit: number) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -137,9 +144,9 @@ export class EmpresaItemComponent implements OnInit {
           });
         }
       });
-  }
+  }*/
 
-  editarPersona(dni: number){
+  /*editarPersona(persona: ClientePersona){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -150,8 +157,8 @@ export class EmpresaItemComponent implements OnInit {
       titulo: 'Persona Responsable',
       camposFormulario: campos,
     };
-
-  }
+    this.dialog.open(AddDialogComponent, dialogConfig)
+  }*/
 
   onChange(e: any){
 

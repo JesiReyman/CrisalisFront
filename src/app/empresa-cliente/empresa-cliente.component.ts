@@ -1,3 +1,4 @@
+import { ClientePersonaService } from './../services/cliente-persona.service';
 import { EmpresaClienteService } from './../services/empresa-cliente.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -20,7 +21,8 @@ export class EmpresaClienteComponent implements OnInit {
   subscription?: Subscription;
   empresaSeleccionada: EmpresaCliente = <EmpresaCliente>{};
 
-  constructor(private empresaClienteService: EmpresaClienteService, private dialog: MatDialog, private gestionarPedido: AgregarItemPedidoService, public router: Router,) { }
+  constructor(private empresaClienteService: EmpresaClienteService, private dialog: MatDialog, private gestionarPedido: AgregarItemPedidoService, public router: Router,
+    private clientePersonaService: ClientePersonaService) { }
 
   ngOnInit(): void {
     this.getListaEmpresas();
@@ -100,9 +102,14 @@ export class EmpresaClienteComponent implements OnInit {
 
 
     } else {
-      this.gestionarPedido.setDniOCuit(this.empresaSeleccionada.dniOCuit);
-      this.router.navigate(['/realizarPedido']);
-    }
+
+      this.clientePersonaService.obtenerPersonaCliente(this.empresaSeleccionada.dniPersona).subscribe({
+        next: (personaCliente) => {
+          this.verPersona(personaCliente)
+        }
+
+    })
+  }
 
   }
 
@@ -149,5 +156,26 @@ export class EmpresaClienteComponent implements OnInit {
       });
   }
 
+
+  verPersona(persona: ClientePersona){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    let campos = ClientePersona.getCamposFormulario(persona);
+
+    dialogConfig.data = {
+      titulo: 'Persona Responsable',
+      camposFormulario: campos,
+    };
+    this.dialog.open(AddDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((resultado) => {
+        if(resultado){
+          this.gestionarPedido.setDniOCuit(this.empresaSeleccionada.dniOCuit);
+          this.router.navigate(['/realizarPedido']);
+        }
+      })
+  }
 
 }

@@ -1,10 +1,10 @@
 <td>{{itemPedido.nombre}}</td>
-<td>{{itemPedido.precioBase}}</td>
+<td>${{itemPedido.precioBase}}</td>
 <td>{{itemPedido.cantidad}}</td>
 <td>{{itemPedido.aniosDeGarantia}}</td>
-<td>{{itemPedido.totalImpuestos}}</td>
-<td>{{itemPedido.totalAdicionales}}</td>
-<td>{{itemPedido.precioFinalUnitario}}</td>
+<td>${{itemPedido.totalImpuestos}}</td>
+<td>${{itemPedido.totalAdicionales}}</td>
+<td>${{itemPedido.precioFinalUnitario}}</td>
 
 <td *ngIf="rutaActual.includes('/editarPedido') && itemPedido.tipo == 'servicio' ">
   <mat-slide-toggle  [(ngModel)]="itemPedido.activo"> </mat-slide-toggle>
@@ -15,4 +15,4 @@
 
 <td>{{itemPedido.descuento}}</td>
 <td>{{itemPedido.precioTotal}}</td>
-<td> <button mat-stroked-button color="warn" (click)="eliminar(itemPedido)">Eliminar</button> </td>
+<td> <button mat-mini-fab color="warn" (click)="eliminar(itemPedido)"> <mat-icon>delete</mat-icon> </button> </td>

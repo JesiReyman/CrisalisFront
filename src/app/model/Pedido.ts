@@ -80,23 +80,23 @@ export class Pedido {
       },
       {
         propiedad: 'precioBase',
-        nombre: 'Subtotal'
+        nombre: 'Subtotal ($)'
       },
       {
         propiedad: 'totalImpuestos',
-        nombre: 'Total impuestos'
+        nombre: 'Total impuestos ($)'
       },
       {
         propiedad: 'totalAdicionales',
-        nombre: 'Total adicionales'
+        nombre: 'Total adicionales ($)'
       },
       {
         propiedad: 'descuento',
-        nombre: 'Total descuento'
+        nombre: 'Total descuento ($)'
       },
       {
         propiedad: 'total',
-        nombre: 'Total'
+        nombre: 'Total ($)'
       }
     ]
   }

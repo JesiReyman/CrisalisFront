@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
 
           let token = resultado.token;
           this.tokenService.setToken(token);
+          this.tokenService.isLogged();
           this.router.navigate(['/productos']);
         },
         error: (error: HttpErrorResponse) => {

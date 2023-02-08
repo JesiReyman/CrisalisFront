@@ -41,6 +41,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { PedidoParticularComponent } from './pedidos/pedido-particular/pedido-particular.component';
 import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
 import { RegistroComponent } from './login/registro/registro.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { RegistroComponent } from './login/registro/registro.component';
     PedidosComponent,
     PedidoParticularComponent,
     EditarPedidoComponent,
-    RegistroComponent
+    RegistroComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

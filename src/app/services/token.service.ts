@@ -20,4 +20,19 @@ export class TokenService {
   public getToken(): string {
     return sessionStorage.getItem(TOKEN_KEY)!;
   }
+
+  public isLogged(): void {
+    let isLogged;
+    if (this.getToken()) {
+      isLogged = true;
+    } else {
+      isLogged = false;
+    }
+    this.logged.next(isLogged);
+  }
+
+  public logOut(): void {
+    window.sessionStorage.clear();
+    this.isLogged();
+  }
 }
