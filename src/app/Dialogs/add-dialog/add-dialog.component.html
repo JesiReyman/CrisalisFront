@@ -1,5 +1,5 @@
 <h3 mat-dialog-title>{{titulo}}</h3>
-<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()" autocomplete="off">
 <div mat-dialog-content class="d-flex flex-column" *ngFor="let campo of camposFormulario">
 
   <mat-form-field appearance="fill" *ngIf="!campo.type.includes('number') && !campo.key.includes('aplica') && !campo.key.includes('estado') && !campo.key.includes('tipo')">
@@ -7,9 +7,14 @@
     <input matInput type={{campo.type}} formControlName={{campo.key}}>
   </mat-form-field>
 
-  <mat-form-field appearance="fill" *ngIf="campo.type.includes('number')">
+  <mat-form-field appearance="fill" *ngIf="campo.type.includes('number') && !campo.key.includes('dniOCuit')">
     <mat-label>{{campo.label}}</mat-label>
     <input matInput type={{campo.type}} formControlName={{campo.key}} min="0">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" *ngIf="campo.type.includes('number') && campo.key.includes('dniOCuit')">
+    <mat-label>{{campo.label}}</mat-label>
+    <input matInput type={{campo.type}} formControlName={{campo.key}} min="0" minlength="7"  maxlength="11">
   </mat-form-field>
 
   <!--<mat-form-field appearance="fill" *ngIf="campo.key.includes('descripcion')">

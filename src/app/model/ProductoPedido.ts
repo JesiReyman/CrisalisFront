@@ -42,7 +42,7 @@ export class ProductoPedido {
       },
       {
         propiedad: 'precioFinalUnitario',
-        nombre: 'Precio Final Unitario'
+        nombre: 'Precio Final Unitario ($)'
       },
       {
         propiedad: 'activo',

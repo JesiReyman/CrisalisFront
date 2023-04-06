@@ -10,6 +10,7 @@ export class Pedido {
   totalAdicionales: number;
   total: number;
   descuento: number;
+  tipoCliente: string;
 
   constructor(
     id: number,
@@ -20,7 +21,8 @@ export class Pedido {
     totalImpuestos: number,
     totalAdicionales: number,
     total: number,
-    descuento: number
+    descuento: number,
+    tipoCliente: string
   ) {
     this.id = id;
     this.dniOCuitCliente = dniOCuitCliente;
@@ -31,6 +33,7 @@ export class Pedido {
     this.totalAdicionales = totalAdicionales;
     this.total = total;
     this.descuento = descuento;
+    this.tipoCliente = tipoCliente;
   }
 
   static getCamposFormulario(item?: Pedido): CamposFormulario[] {
@@ -77,19 +80,23 @@ export class Pedido {
       },
       {
         propiedad: 'precioBase',
-        nombre: 'Subtotal'
+        nombre: 'Subtotal ($)'
       },
       {
         propiedad: 'totalImpuestos',
-        nombre: 'Total impuestos'
+        nombre: 'Total impuestos ($)'
       },
       {
         propiedad: 'totalAdicionales',
-        nombre: 'Total adicionales'
+        nombre: 'Total adicionales ($)'
+      },
+      {
+        propiedad: 'descuento',
+        nombre: 'Total descuento ($)'
       },
       {
         propiedad: 'total',
-        nombre: 'Total'
+        nombre: 'Total ($)'
       }
     ]
   }

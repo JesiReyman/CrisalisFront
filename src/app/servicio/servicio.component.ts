@@ -5,6 +5,7 @@ import { Servicio } from './../model/Servicio';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-servicio',
@@ -60,7 +61,12 @@ export class ServicioComponent implements OnInit {
       next: () => {
         this.listaDeServicios();
       },
-      error: (error: HttpErrorResponse) => console.log(error),
+      error: (error: HttpErrorResponse) => Swal.fire({
+        icon: 'error',
+        title: 'Falló',
+        text: 'No se puede eliminar el servicio porque está en uso.',
+
+      }),
     });
   }
 

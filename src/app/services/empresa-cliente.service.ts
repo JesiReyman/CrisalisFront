@@ -1,3 +1,4 @@
+import { ClientePersona } from 'src/app/model/ClientePersona';
 import { EmpresaCliente } from './../model/EmpresaCliente';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -28,7 +29,15 @@ export class EmpresaClienteService {
   }
 
   public editarEmpresa(cuitEmpresa: number, empresa: EmpresaCliente): Observable<EmpresaCliente>{
-    return this.http.put<EmpresaCliente>(this.empresaURL + `/editar/${cuitEmpresa}`, empresa)
+    return this.http.put<EmpresaCliente>(this.empresaURL + `/editar/${cuitEmpresa}`, empresa);
+  }
+
+  public encontrarEmpresa(cuitEmpresa: number): Observable<EmpresaCliente>{
+    return this.http.get<EmpresaCliente>(this.empresaURL + `/${cuitEmpresa}`);
+  }
+
+  public asociarPersonaAEmpresa(cuitEmpresa: number, persona: ClientePersona): Observable<EmpresaCliente> {
+    return this.http.put<EmpresaCliente>(this.empresaURL + `/${cuitEmpresa}/asociar`, persona);
   }
 
   public setEmpresa(empresa: EmpresaCliente){

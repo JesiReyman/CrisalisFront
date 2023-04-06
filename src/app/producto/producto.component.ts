@@ -6,6 +6,7 @@ import { ProductoService } from './../services/producto.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Producto } from '../model/Producto';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-producto',
@@ -42,7 +43,12 @@ export class ProductoComponent implements OnInit {
       next: () => {
         this.obtenerListaProductos();
       },
-      error: (error: HttpErrorResponse) => console.log(error.message),
+      error: (error: HttpErrorResponse) => Swal.fire({
+        icon: 'error',
+        title: 'Falló',
+        text: 'No se puede eliminar el producto porque está en uso.',
+
+      }),
     });
   }
 

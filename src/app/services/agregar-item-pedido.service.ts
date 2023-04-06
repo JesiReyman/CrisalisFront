@@ -1,3 +1,5 @@
+import { EmpresaCliente } from './../model/EmpresaCliente';
+import { ClientePersona } from 'src/app/model/ClientePersona';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 import { ProductoPedido } from '../model/ProductoPedido';
@@ -13,6 +15,8 @@ export class AgregarItemPedidoService {
 
   idCliente: Subject<number> = new BehaviorSubject<number>(0);
   idCliente$ = this.idCliente.asObservable();
+  cliente: Subject<ClientePersona> = new Subject();
+  empresaCliente: Subject<EmpresaCliente> = new Subject();
   constructor() { }
 
   recibirItemPedido(){

@@ -1,19 +1,26 @@
 <div class="d-flex flex-column container-fluid mx-0 seccion">
-  <div class="d-flex container titulo-seccion align-items-center">
-     <h1 class="mb-0">Empresas</h1>
-     <div>
-      <button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>
-     </div>
-     <!--<mat-form-field appearance="fill">
-      <mat-label>Buscar empresa por DNI</mat-label>
-      <input />
-      <mat-icon>search</mat-icon>
-    </mat-form-field>-->
+  <div class="d-flex my-4 container titulo-seccion align-items-center">
+    <div class="d-flex justify-content-between py-3 titulo-boton-container ">
+      <h1 class="mb-0">Empresas</h1>
+      <div>
+        <!--<button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>-->
+        <button class="boton-agregar" mat-mini-fab color="success" (click)="agregar()" >
+          <mat-icon>add</mat-icon>
+        </button>
+
+      </div>
+      <!--<mat-form-field appearance="fill">
+        <mat-label>Buscar empresa por DNI</mat-label>
+        <input />
+        <mat-icon>search</mat-icon>
+      </mat-form-field>-->
+    </div>
   </div>
   <div class="container table-responsive">
-    <table  class="table align-middle tabla-empresa-persona" >
+    <table  class="table align-middle tabla-empresa" >
       <thead class="table-light">
         <tr>
+          <th>Seleccionar</th>
           <th>Razón Social</th>
           <th>Fecha Inicio de actividades</th>
           <th>CUIT</th>
@@ -26,6 +33,10 @@
         </tr>
       </tbody>
     </table>
+
+    <div class="d-flex">
+      <button class="ms-auto" type="button" mat-raised-button color="accent" [disabled]="!empresaSeleccionada.dniOCuit"  (click)="onPedido()">Realizar Pedido</button>
+    </div>
 
   </div>
 </div>

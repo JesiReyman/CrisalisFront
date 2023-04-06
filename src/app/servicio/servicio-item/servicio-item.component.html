@@ -1,25 +1,27 @@
 <td>{{servicioItem.nombre}}</td>
 <td>{{servicioItem.descripcion}}</td>
-<td>{{servicioItem.precioBase}}</td>
+<td>${{servicioItem.precioBase}}</td>
 <td>${{servicioItem.precioSoporte}}</td>
 <td class="d-flex justify-content-around" *ngIf="router.url === '/servicios'">
-  <button type="button" class="btn btn-primary" (click)="onEdit(servicioItem)">Editar</button>
-  <button type="button" class="btn btn-danger" (click)="onDelete(servicioItem.nombre)">Eliminar</button>
+  <button mat-mini-fab color="primary" (click)="onEdit(servicioItem)"><mat-icon>edit</mat-icon></button>
+  <button mat-mini-fab color="warn" (click)="onDelete(servicioItem.nombre)"><mat-icon>delete</mat-icon></button>
 </td>
 
 <td class="d-flex " *ngIf="router.url === '/realizarPedido' || router.url === '/editarPedido' " >
-  <form class="d-flex justify-content-around" style="width: 100%;" [formGroup]="campoCantidad" (ngSubmit)="submit(servicioItem)">
+  <form class="d-flex justify-content-around align align-items-center" style="width: 100%;" [formGroup]="campoCantidad" (ngSubmit)="submit(servicioItem)">
     <mat-form-field>
       <input
         type="number"
         class="form-control"
+        min="1"
         matInput
+        required
         name="value"
         placeholder="Cantidad"
         formControlName="cantidad">
 
     </mat-form-field>
 
-    <button  mat-stroked-button color="warn" type="submit">Agregar</button>
+    <button  mat-mini-fab color="success" type="submit" [disabled]="campoCantidad.invalid"><mat-icon>add</mat-icon></button>
   </form>
 </td>

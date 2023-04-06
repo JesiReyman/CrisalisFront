@@ -1,0 +1,21 @@
+.titulo-seccion{
+  width: 100%;
+
+}
+
+.titulo-boton-container{
+  width: 150px;
+}
+
+.titulo-cliente{
+  margin: 0;
+}
+
+.mat-success{
+  color: white;
+  background-color: #00775e;
+}
+
+.tabla-cliente-persona{
+  text-align: center;
+}

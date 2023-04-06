@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AgregarItemPedidoService } from './../../services/agregar-item-pedido.service';
@@ -65,11 +66,17 @@ export class ClientePersonaComponent implements OnInit {
       });
   }
 
-  onPedido(dni: number){
+  /*onPedido(dni: number){
     //this.gestionarPedido.idCliente.next(dni);
     this.gestionarPedido.setDniOCuit(dni);
     this.router.navigate(['/realizarPedido']);
-  }
+  }*/
 
+  onChange(e: any){
+
+    let cliente = e.value as ClientePersona;
+    this.gestionarPedido.setDniOCuit(cliente.dniOCuit);
+    this.gestionarPedido.cliente.next(cliente);
+  }
 
 }

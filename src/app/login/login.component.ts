@@ -1,3 +1,4 @@
+import { RegistroComponent } from './registro/registro.component';
 import { TokenService } from './../services/token.service';
 import { Usuario } from './../model/usuario';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +7,8 @@ import { AuthService } from '../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NuevoUsuario } from '../model/nuevoUsuario';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +16,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  hide = true;
+
   loginForm = new FormGroup({
     nombreUsuario: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
@@ -29,7 +34,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
@@ -43,25 +49,53 @@ export class LoginComponent implements OnInit {
 
           let token = resultado.token;
           this.tokenService.setToken(token);
+          this.tokenService.isLogged();
           this.router.navigate(['/productos']);
         },
         error: (error: HttpErrorResponse) => {
           console.log(error.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Falló',
+            text: 'Verifique si ingresó correctamente el usuario y contraseña.',
+
+          })
         },
       });
     }
   }
 
-  onRegistrar(): void {
-    let nuevoUsuario = this.registracionForm.value as NuevoUsuario;
 
-    this.authService.nuevoUsuario(nuevoUsuario).subscribe({
-      next: (resultado) => {
-
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error.message);
-      }
+  registroDialog(){
+    const dialogRef = this.dialog.open(RegistroComponent, {
+      width: '300px',
     })
+
+    dialogRef.afterClosed().subscribe(nuevoUsuario => {
+      if(nuevoUsuario){
+        this.authService.nuevoUsuario(nuevoUsuario).subscribe({
+          next: (resultado) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Nuevo usuario guardado',
+
+            })
+          },
+          error: (error: HttpErrorResponse) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Falló',
+
+            })
+            console.log(error.message);
+          }
+        })
+      }
+
+
+    });
   }
+
+
+
 }

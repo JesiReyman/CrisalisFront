@@ -1,4 +1,24 @@
+.titulo-seccion{
+  width: 100%;
+
+}
+
 .tabla-productos{
   width: 100%;
   text-align: center;
 }
+
+.titulo-boton-container{
+  width: 170px;
+}
+
+.titulo-productos{
+  margin: 0;
+}
+
+.mat-success{
+  color: white;
+  background-color: #00775e;
+}
+
+

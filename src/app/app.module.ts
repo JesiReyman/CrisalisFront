@@ -22,6 +22,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DeleteDialogComponent } from './Dialogs/delete-dialog/delete-dialog.component';
 import { AddDialogComponent } from './Dialogs/add-dialog/add-dialog.component';
 import { ServicioComponent } from './servicio/servicio.component';
@@ -38,6 +40,8 @@ import { AdicionalItemComponent } from './impuestos/adicional-item/adicional-ite
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { PedidoParticularComponent } from './pedidos/pedido-particular/pedido-particular.component';
 import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
+import { RegistroComponent } from './login/registro/registro.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,9 @@ import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
     AdicionalItemComponent,
     PedidosComponent,
     PedidoParticularComponent,
-    EditarPedidoComponent
+    EditarPedidoComponent,
+    RegistroComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +85,9 @@ import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
     MatCheckboxModule,
     MatRadioModule,
     MatExpansionModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {

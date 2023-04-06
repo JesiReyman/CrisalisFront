@@ -1,9 +1,15 @@
+import { ClientePersonaService } from './../services/cliente-persona.service';
 import { EmpresaClienteService } from './../services/empresa-cliente.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EmpresaCliente } from '../model/EmpresaCliente';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
+import { Subscription } from 'rxjs';
+import { AgregarItemPedidoService } from '../services/agregar-item-pedido.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { ClientePersona } from '../model/ClientePersona';
 
 @Component({
   selector: 'app-empresa-cliente',
@@ -12,10 +18,18 @@ import { AddDialogComponent } from '../Dialogs/add-dialog/add-dialog.component';
 })
 export class EmpresaClienteComponent implements OnInit {
   listaEmpresas: EmpresaCliente[] = [];
-  constructor(private empresaClienteService: EmpresaClienteService, private dialog: MatDialog) { }
+  subscription?: Subscription;
+  empresaSeleccionada: EmpresaCliente = <EmpresaCliente>{};
+
+  constructor(private empresaClienteService: EmpresaClienteService, private dialog: MatDialog, private gestionarPedido: AgregarItemPedidoService, public router: Router,
+    private clientePersonaService: ClientePersonaService) { }
 
   ngOnInit(): void {
     this.getListaEmpresas();
+
+    this.subscription = this.gestionarPedido.empresaCliente.subscribe((cliente) => {
+      this.empresaSeleccionada = cliente;
+    })
   }
 
   getListaEmpresas() {
@@ -74,6 +88,94 @@ export class EmpresaClienteComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => console.log(error.message),
       });
+  }
+
+  onPedido(){
+    if (!this.empresaSeleccionada.dniPersona) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Esta empresa no tiene ninguna persona registrada, por favor registre una.',
+
+      }).then(() => {
+        this.registrarPersona(this.empresaSeleccionada.dniOCuit);
+      });
+
+
+    } else {
+
+      this.clientePersonaService.obtenerPersonaCliente(this.empresaSeleccionada.dniPersona).subscribe({
+        next: (personaCliente) => {
+          this.verPersona(personaCliente)
+        }
+
+    })
+  }
+
+  }
+
+  registrarPersona(cuit: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    let campos = ClientePersona.getCamposFormulario();
+
+    dialogConfig.data = {
+      titulo: 'Persona Responsable',
+      camposFormulario: campos,
+    };
+
+    this.dialog
+      .open(AddDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((clientePersona) => {
+        if (clientePersona) {
+          this.empresaClienteService.asociarPersonaAEmpresa(cuit, clientePersona).subscribe({
+            next: () => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Registro exitoso!',
+
+              }).then(() => {
+                this.gestionarPedido.setDniOCuit(cuit);
+                this.router.navigate(['/realizarPedido']);
+              })
+
+
+            },
+            error: (error: HttpErrorResponse) => {
+              console.log(error.message)
+              Swal.fire({
+                icon: 'error',
+                title: 'Ocurrió un error',
+
+              })
+            },
+          });
+        }
+      });
+  }
+
+
+  verPersona(persona: ClientePersona){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    let campos = ClientePersona.getCamposFormulario(persona);
+
+    dialogConfig.data = {
+      titulo: 'Persona Responsable',
+      camposFormulario: campos,
+    };
+    this.dialog.open(AddDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((resultado) => {
+        if(resultado){
+          this.gestionarPedido.setDniOCuit(this.empresaSeleccionada.dniOCuit);
+          this.router.navigate(['/realizarPedido']);
+        }
+      })
   }
 
 }

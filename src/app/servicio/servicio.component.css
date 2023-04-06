@@ -1,0 +1,22 @@
+.titulo-seccion{
+  width: 100%;
+
+}
+
+.tabla-servicios{
+  width: 100%;
+  text-align: center;
+}
+
+.titulo-boton-container{
+  width: 170px;
+}
+
+.titulo-servicios{
+  margin: 0;
+}
+
+.mat-success{
+  color: white;
+  background-color: #00775e;
+}
